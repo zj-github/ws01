@@ -1,0 +1,62 @@
+﻿<html>
+
+<meta charset="utf-8">
+<body>
+
+使用solrj需要先引入solrj的jar包，以下是solrj的maven坐标。注意版本需要和solr版本对应。
+
+<pre>
+</textarea>
+<textarea cols="70%"  rows="11" disabled="disabled">
+<dependency>
+	<groupId>commons-logging</groupId>
+	<artifactId>commons-logging</artifactId>
+	<version>1.2</version>
+</dependency>
+<dependency>
+	<groupId>org.apache.solr</groupId>
+	<artifactId>solr-solrj</artifactId>
+	<version>4.10.4</version>
+</dependency>
+</textarea>
+<pre>
+HttpSolrServer的构建
+HttpSolrServer server = new HttpSolrServer("http://192.168.1.110:8080/solr");
+
+Document的构建
+SolrInputDocument doc = new SolrInputDocument();
+doc.addField("id", "11");
+doc.addField("title", "this is my document !!");
+
+提交索引
+server.add(doc);
+或者批量提交
+List<SolrInputDocument> docs = new ArrayList<SolrInputDocument>();
+SolrInputDocument doc1 = new SolrInputDocument();
+doc.addField("id", "11");
+doc.add(doc1)
+doc.addField("title", "this is my document !");
+SolrInputDocument doc2 = new SolrInputDocument();
+doc.addField("id", "12");
+doc.addField("title", "this is my document 2 !");
+doc.add(doc1)
+server.add(docs);
+
+删除索引
+server.deleteById("0");
+server.commit();
+
+查询
+//1、构建SolrQuery
+SolrQuery params = new SolrQuery("*:*");
+params.set("rows", 10);
+//2、执行查询
+QueryResponse response = server.query(params);
+//3、获取返回结果
+SolrDocumentList list = response.getResults();
+
+</pre>
+
+</body>
+
+</html>

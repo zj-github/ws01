@@ -1,0 +1,28 @@
+<html>
+<meta charset="utf-8">
+
+<pre>
+1、下载solr-4.10.4.tgz
+wget http://archive.apache.org/dist/lucene/solr/4.10.4/solr-4.10.4.tgz
+2、解压缩solr-4.10.4.tgz。
+tar -xvf solr-4.10.4.tgz /ws01
+
+3、unzip solr-4.10.4/example/webapps/solr.war -d /ws01/tomcat7/webapps/solr
+4、cp solr-4.10.4/example/lib/ext/lib/*.jar /ws01/tomcat7/webapps/solr/WEB-INF/lib 
+注：一共5个jar包，是solr的独立日志处理模块；
+5、mkdir tomcat7/webapps/solr/WEB-INF/classes  
+cp solr-4.10.4/example/resources/log4j.properties /ws01/tomcat7/webapps/solr/WEB-INF/classes
+6、vim  tomcat7/webapp/solr/WEB-INF/web.xml去掉注释，修solr/home的值为/ws01/solr-4.10.4/example/solr
+<env-entry>
+<env-entry-name>solr/home</env-entry-name>
+<env-entry-value>/ws01/solr-4.10.4/example/solr</env-entry-value>
+<env-entry-type>java.lang.String</env-entry-type>
+</env-entry>
+
+7、启动tomcat
+8、浏览器访问http://localhost:8080/solr
+
+solr日志文件位置
+/ws01/tomcat7/webapps/solr/WEB-INF/logs/solr.log
+</pre>
+</html>

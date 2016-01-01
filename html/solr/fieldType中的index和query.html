@@ -1,0 +1,15 @@
+<html>
+<meta charset="utf-8">
+<pre>
+一个index、一个query代表了索引和查询时候使用的分词类型
+<fieldType name="text_ansj" class="solr.TextField" positionIncrementGap="100">
+    <analyzer type="index">
+         <tokenizer class="org.ansj.solr.AnsjTokenizerFactory"  isQuery="false"/>
+    </analyzer>
+    <analyzer type="query">
+        <tokenizer class="org.ansj.solr.AnsjTokenizerFactory"/>
+    </analyzer>
+</fieldType>
+
+</pre>
+</html>

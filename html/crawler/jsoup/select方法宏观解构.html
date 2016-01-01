@@ -1,0 +1,82 @@
+<html>
+
+
+  <script src="../../jquery.min.js" type="text/javascript"></script>
+  <script>
+  $(function(){
+	var ts = $("textarea");
+	for(var i in ts){
+		var t=$(ts[i]);
+		var len = (t.val().split(/\n/).length)
+		t.attr("rows",len)
+		t.attr("disabled","disabled");
+		t.attr("cols","100");
+		t.css("resize","none");
+	}
+
+  });
+  
+  </script>
+
+<body>
+<pre>
+
+<img src="Jsoup_select方法的宏观解构.png">
+
+Elements的select方法
+<textarea>
+public Elements select(String cssQuery) {
+	return Selector.select(cssQuery, this);
+}
+</textarea>
+Selector的select方法
+<textarea>
+public static Elements select(String query, Element root) {
+	return new Selector(query, root).select();
+}
+</textarea>
+Selector的构造方法
+<textarea>
+private Selector(String query, Element root) {
+	Validate.notNull(query);
+	query = query.trim();
+	Validate.notEmpty(query);
+	Validate.notNull(root);
+
+	this.evaluator = QueryParser.parse(query);
+
+	this.root = root;
+}
+</textarea>
+
+Selector的select方法中调用了Collector的静态方法collect。
+Accumulator：收集器
+Evaluator：
+<textarea>
+public static Elements collect (Evaluator eval, Element root) {
+	Elements elements = new Elements();
+	new NodeTraversor(new Accumulator(root, elements, eval)).traverse(root);
+	return elements;
+}
+</textarea>
+<strong>new NodeTraversor(new Accumulator(root, elements, eval)).traverse(root);</strong>
+这行代码是重点，因为这里调用traverse()方法，这个方法会遍历root节点和所有的子元素，下一篇文章会讲一下traverse方法的逻辑。
+
+以下是Accumulator类中的head方法做的事情，而他的tail方法是空的，什么也没做。
+head方法，遍历了所有的节点，把他加入了new出来的Elements中。
+<textarea>
+public void head(Node node, int depth) {
+	if (node instanceof Element) {
+		Element el = (Element) node;
+		if (eval.matches(root, el))
+			elements.add(el);
+	}
+}
+</textarea>
+
+
+</pre>
+
+
+<body>
+</html>

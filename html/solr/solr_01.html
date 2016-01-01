@@ -1,0 +1,19 @@
+﻿<html>
+
+<meta charset="utf-8">
+
+<body>
+<h1>Solr程序的典型构成</h1>
+
+<img src="img/solr_architecture_001.png"/>
+<h1>索引的构建（写）</h1>
+<img src="img/solr_write_17920908497087.png"/>
+
+<h1>索引的使用（读）<h1>
+<img src="img/solr_read.png"/>
+</body>
+
+
+solrj中执行请求的方法是HttpSolrServer类中的executeMethod方法，方法中调用了Httpclient来实现http协议盏的运行。
+
+</html>

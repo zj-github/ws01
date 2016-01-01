@@ -1,0 +1,144 @@
+<html>
+
+  <script src="../../jquery.min.js" type="text/javascript"></script>
+  <script src="../../inittextarea.js" type="text/javascript"></script>
+
+<body>
+<pre>
+<h2>安装</h2>
+
+<h2>启动停止、连接服务端</h2>
+./redis-server
+./redis-cli
+./redis-benchmark	redis性能测试工具
+./redis-check-aof	aof文件修复工具
+./redis-check-dump  rdb文件检查工具
+
+redis-cli shutdown
+kill redis_pid
+
+redis-cli -h ip -p port
+
+测试是否运行正常
+redis-cli ping
+PONG表示正常
+
+
+
+
+
+<h2>配置文件</h2>
+daemonize	yes							设置redis以后台进程模式运行
+pidfile		/var/run/redis_端口号.pid	pid文件位置
+port		端口号						redis监听端口号
+dir			/var/redis/端口号			设置持久化文件存放位置
+
+<h2>基本命令</h2>
+<h3>keys</h3>
+
+exists
+del
+type
+
+若存在追加，若不存在，存入
+append 
+
+<h2>数据类型</h2>
+
+
+递增数字
+redis 127.0.0.1:6379> incr num
+(integer) 1
+redis 127.0.0.1:6379> incr num
+(integer) 2
+redis 127.0.0.1:6379> incr num
+(integer) 3
+
+redis 127.0.0.1:6379> set num 40
+OK
+redis 127.0.0.1:6379> get num
+"40"
+
+指定一次增加的数值
+incrby num 3
+
+减少指定的整数
+decr key
+decrby key 3
+
+增加指定浮点数
+incrbyfloat key increment
+
+
+字符串类型
+set key value
+get key
+strlen key 不存在返回0
+
+一次设置多个键值对
+mget key [key ...]
+mset key value [key value ...]
+
+位操作
+
+
+散列类型
+hset car price 500
+hget car name bmw
+
+car:2	color:白色 ,name: 奥迪,price,90万
+
+redis 127.0.0.1:6379> hset car price 90万
+(integer) 1
+redis 127.0.0.1:6379> hset car name bmw
+(integer) 0
+(0.61s)
+redis 127.0.0.1:6379> hget car name
+"bmw"
+
+
+redis 127.0.0.1:6379> hmset car:1 price 100w name benchi color black
+OK
+redis 127.0.0.1:6379> hgetall car:1
+1) "price"
+2) "100w"
+3) "name"
+4) "benchi"
+5) "color"
+6) "black"
+
+redis 127.0.0.1:6379> hmget  car:1 price name
+1) "100w"
+2) "benchi"
+(0.51s)
+
+判断一个字段是否存在
+hexists car model
+若存在返回1，否则返回0，key不存在也返回0
+
+当字段不存在的时候赋值
+hsetnx car model 2.0T
+
+使字段值增加指定的整数
+hincrby person:1 score 1
+
+删除字段
+hdel car price  
+
+
+
+
+
+
+
+
+列表类型
+集合类型
+有序集合类型
+
+
+
+</pre>
+
+<body>
+</html>

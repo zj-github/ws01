@@ -1,0 +1,48 @@
+<html>
+
+<title>Jsoup是怎么选择元素的</title>
+
+  <script src="../../jquery.min.js" type="text/javascript"></script>
+  <script>
+  $(function(){
+	var ts = $("textarea");
+	for(var i in ts){
+		var t=$(ts[i]);
+		var len = (t.val().split(/\n/).length)
+		t.attr("rows",len)
+		t.attr("disabled","disabled");
+		t.attr("cols","100");
+		t.css("resize","none");
+	}
+
+  });
+  
+  </script>
+
+<body>
+<pre>
+
+Jsoup可以使用DOM api的语法，jquery语法来操作元素。
+
+<strong>Document的 与dom api类似的方法</strong>
+
+before*
+after*
+child*
+getElementBy*
+parent*
+previous*
+
+<strong>Document的 与Jquery api类的方法</strong>
+
+Jsoup使用select方法时，可以输入类似于Jquery选择器一样的语法，来选择元素。如下
+
+doc.select("a[href]"); // 具有href 属性的链接
+doc.select("img[src$=.png]");//所有引用png图片的元素
+doc.select("div.masthead").first();// 找出定义了class=masthead 的元素
+doc.select("h3.r >a"); // direct a after h3
+doc.attr()
+
+</pre>
+<body>
+</html>

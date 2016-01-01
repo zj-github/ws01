@@ -1,0 +1,93 @@
+﻿<html>
+
+<meta charset="utf-8">
+
+<body>
+
+<pre>
+准备两台主机，分别部署solr，部署教程见<a href="solr_deploy.html">solr 4.x.x 环境搭建（最简操作）教程</a>
+
+其中一台做master，一台做slaver。master负责写，slaver负责处理用户的访问请求。slaver会定时复制master上的索引，保证索引文件完全相同。
+而slaver从master上复制索引的过程是通过RequestHandler来进行的，Slaver按照指定周期调用ReqeuestHandler，同步Master上的索引。
+
+
+配置步骤
+
+1、配置master
+编辑solr_home下的solrconfig.xml，在config标签中添加如下内容
+</pre>
+<textarea cols="100%" rows="20" disabled>
+<requestHandler name="/replication" class="solr.ReplicationHandler" >
+	<lst name="master">
+		<!--Replicate on 'startup' and 'commit'. 'optimize' is also a valid value for replicateAfter. -->
+		<str name="replicateAfter">startup</str>
+		<str name="replicateAfter">commit</str>
+				<!--Create a backup after 'optimize'. Other values can be 'commit', 'startup'. It is possible to have multiple entries of this config string.  Note that this is just for backup, replication does not require this. -->
+		<!-- <str name="backupAfter">optimize</str> -->
+				<!--If configuration files need to be replicated give the names here, separated by comma -->
+		<str name="confFiles">schema.xml,stopwords.txt,elevate.xml</str>
+		<!--The default value of reservation is 10 secs.See the documentation below . Normally , you should not need to specify this -->
+		<str name="commitReserveDuration">00:00:10</str>
+	</lst>
+</requestHandler>
+</textarea>
+
+<pre>
+参数说明
+requestHandler的属性name是这个Master上复制处理器的名字，无需修改，在slave的配置文件中将会用到这个属性值。
+lst name="master"说明这个Master节点，如果name=”slave”这个服务器就是Slave节点。
+replicateAfter说明什么时候进行复制，取值可以是startup, commit, optimize分别是创建索引、提交索引、优化索引之后。每当这些动作执行结束后，Slave就可以从Master上进行复制了。
+</pre>
+
+<pre>
+1、配置slaver
+<textarea cols="100%" rows="32" disabled>
+<requestHandler name="/replication" class="solr.ReplicationHandler" >    
+    <lst name="slave">        
+        <!--fully qualified url for the replication handler of master . It is possible to pass on this as a request param for the fetchindex command-->       
+        <str name="masterUrl">http://master_host:port/solr/corename/replication</str>          
+       
+        <!--Interval in which the slave should poll master .Format is HH:mm:ss . If this is absent slave does not poll automatically.          But a fetchindex can be triggered from the admin or the http API -->        
+        <str name="pollInterval">00:00:20</str> 
+         
+        <!-- THE FOLLOWING PARAMETERS ARE USUALLY NOT REQUIRED-->        
+        <!--to use compression while transferring the index files. The possible values are internal|external         if the value is 'external' make sure that your master Solr has the settings to honour the accept-encoding header.         see here for details http://wiki.apache.org/solr/SolrHttpCompression         If it is 'internal' everything will be taken care of automatically.          USE THIS ONLY IF YOUR BANDWIDTH IS LOW . THIS CAN ACTUALLY SLOWDOWN REPLICATION IN A LAN-->        
+        <str name="compression">internal</str>
+        
+        <!--The following values are used when the slave connects to the master to download the index files.          Default values implicitly set as 5000ms and 10000ms respectively. The user DOES NOT need to specify          these unless the bandwidth is extremely low or if there is an extremely high latency-->        
+        <str name="httpConnTimeout">5000</str>        
+        <str name="httpReadTimeout">10000</str>       
+        <!-- If HTTP Basic authentication is enabled on the master, then the slave can be configured with the following -->        
+        <str name="httpBasicAuthUser">username</str>        
+        <str name="httpBasicAuthPassword">password</str>     
+</lst>
+</requestHandler>
+</textarea>
+ 
+
+masterUrl":http://master_host:port/solr/corename/replication指明了主节点的位置
+
+属性值是一个url，指向了Master服务器上的提供复制功能的requestHandler
+master_host：master服务器的IP或主机名 
+port：master服务器上部署solr应用的tomcat端口 
+solr：solr的web应用名称 
+corename: solr中的core，关于core的概念请参考相关文档。由于本案例中不涉及多个core，所以此处的url中可以去掉这项，也不对core进行过多的说明。 
+replaction: Master上提供复制的requestHandler名称，也就是requestHandler的name属性的取值。
+
+<str name="pollInterval">00:00:20</str>是Slave定期检测Master的时间，格式是HH:mm:ss。这里配置的时间是20秒，因此Slave每个20秒会主动请求一次Master服务器，获得Master服务器上索引文件的状态，比如最后修改时间，文件尺寸等，如果与本机的索引文件不同就进行复制，实现同步。   
+</pre>
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+
+</html>

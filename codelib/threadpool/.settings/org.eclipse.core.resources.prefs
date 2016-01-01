@@ -1,0 +1,15 @@
+eclipse.preferences.version=1
+encoding//src/main/java=UTF-8
+encoding//src/main/java/cn/iktz/thread/demo=GBK
+encoding//src/main/java/cn/iktz/thread/demo/BlockingQueueTest.java=UTF-8
+encoding//src/main/java/cn/iktz/thread/demo/CallableAndFuture.java=UTF-8
+encoding//src/main/java/cn/iktz/thread/demo/CallableAndFuture2.java=UTF-8
+encoding//src/main/java/cn/iktz/thread/demo/CountdownLatchTest.java=UTF-8
+encoding//src/main/java/cn/iktz/thread/demo/ReadWriteLockTest.java=GBK
+encoding//src/main/java/cn/iktz/thread/demo/ReadWriteLockTest2.java=GBK
+encoding//src/main/java/cn/iktz/thread/demo/ThreadLocalTest2.java=GBK
+encoding//src/main/java/queue=GBK
+encoding//src/main/java/queue/Test.java=GBK
+encoding//src/main/java/read=GBK
+encoding//src/main/java/syn=GBK
+encoding//src/test/java=UTF-8

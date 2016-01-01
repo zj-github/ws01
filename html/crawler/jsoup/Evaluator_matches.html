@@ -1,0 +1,120 @@
+<html>
+
+<title>Jsoup是怎么选择元素的</title>
+
+  <script src="../../jquery.min.js" type="text/javascript"></script>
+  <script>
+  $(function(){
+	var ts = $("textarea");
+	for(var i in ts){
+		var t=$(ts[i]);
+		var len = (t.val().split(/\n/).length)
+		t.attr("rows",len)
+		t.attr("disabled","disabled");
+		t.attr("cols","100");
+		t.css("resize","none");
+	}
+
+  });
+  
+  </script>
+
+<body>
+<pre>
+
+线看一下大体的思路。
+
+<img src="method_match.png" >
+Evaluator:表达式的意思，我们在select方法中输入的参数，会被转换成这个对象。
+
+<strong>1、Evaluator的获取</strong>
+
+Evaluator对象的实例化是在Selector的构造方法中完成的
+
+这段代码，实例化了Selector。
+<textarea>
+public static Elements select(String query, Element root) {
+	return new Selector(query, root).select();
+}
+</textarea>
+进入Selector的构造方法（见下），可以看到一段代码：this.evaluator = QueryParser.parse(query);，说明QueryParser.parse(query)方法实例化了一个Evaluator对象
+<textarea>
+private Selector(String query, Element root) {
+	Validate.notNull(query);
+	query = query.trim();
+	Validate.notEmpty(query);
+	Validate.notNull(root);
+
+	this.evaluator = QueryParser.parse(query);
+
+	this.root = root;
+}
+</textarea>
+城上所讲，进入parse方法，代码如下：
+<textarea>
+public static Evaluator parse(String query) {
+	QueryParser p = new QueryParser(query);
+	return p.parse();
+}
+</textarea>
+而里面的代码比较复杂，需要单辟一章来讲，在此不深究。
+接着看match方法
+
+<strong>2、match方法匹配标签和属性</strong>
+
+以下是collect方法的代码（其中的traverse方法和NodeVistor类比较复杂，需要单辟一章来讲，在此不深究）
+<textarea>
+public static Elements collect (Evaluator eval, Element root) {
+	Elements elements = new Elements();
+	new NodeTraversor(new Accumulator(root, elements, eval)).traverse(root);
+	return elements;
+}
+</textarea>
+
+traverse方法中调用了NodeVistor实现类Accumulator的head方法，代码如下
+<textarea>
+while (node != null) {
+	visitor.head(node, depth);//*********//
+	if (node.childNodeSize() > 0) {
+		node = node.childNode(0);
+		depth++;
+	} else {
+		while (node.nextSibling() == null && depth > 0) {
+			visitor.tail(node, depth);
+			node = node.parentNode();
+			depth--;
+		}
+		visitor.tail(node, depth);
+		if (node == root)
+			break;
+		node = node.nextSibling();
+	}
+}
+</textarea>
+
+
+Accumulator是NodeVistor的实现类，实现了NodeVistor的head和tail方法。head方法中的内容如下
+eval.matches是将传入的表达式和遍历到的节点进行比较，看是不是一样的。
+<textarea>
+public void head(Node node, int depth) {
+	if (node instanceof Element) {
+		Element el = (Element) node;
+		//这里，注意,是为了和指定的选择比较，
+		//看是不是和遍历到的节点匹配。
+		if (eval.matches(root, el))
+			elements.add(el);
+	}
+}
+</textarea>
+而这里就是eval.matches方法，其实就是比较字符串，
+比如你在select方法中传入的参数是"a[href]"那么，这里就会比较拿a和element的tagName比较，属性的比较也是通过这样的方法实现的。后面可能会讲。
+<textarea>
+public boolean matches(Element root, Element element) {
+	return (element.tagName().equals(tagName));
+}
+</textarea>
+
+
+</pre>
+<body>
+</html>
