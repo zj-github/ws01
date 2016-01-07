@@ -29,5 +29,11 @@
 			<attribute name="owner.project.facets" value="java"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="lib" path="src/main/resources/cn/iktz/javawebdemo/jdbc/dbassist/c3p0-0.9.1.2-jdk1.3.jar"/>
+	<classpathentry kind="lib" path="src/main/resources/cn/iktz/javawebdemo/jdbc/dbassist/c3p0-0.9.1.2.jar"/>
+	<classpathentry kind="lib" path="src/main/resources/cn/iktz/javawebdemo/jdbc/dbassist/c3p0-oracle-thin-extras-0.9.1.2.jar"/>
+	<classpathentry kind="lib" path="src/main/resources/cn/iktz/javawebdemo/jdbc/dbassist/commons-dbcp-1.4.jar"/>
+	<classpathentry kind="lib" path="src/main/resources/cn/iktz/javawebdemo/jdbc/dbassist/commons-pool-1.5.6.jar"/>
+	<classpathentry kind="lib" path="src/main/resources/cn/iktz/javawebdemo/jdbc/dbassist/mysql-connector-java-5.0.8-bin.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

@@ -1,4 +1,5 @@
 package a23_socket;
+
 /*
 编写一个聊天程序。
 有收数据的部分，和发数据的部分。
@@ -12,91 +13,72 @@ package a23_socket;
 */
 import java.io.*;
 import java.net.*;
-class Send implements Runnable
-{
+
+class Send implements Runnable {
 	private DatagramSocket ds;
-	public Send(DatagramSocket ds)
-	{
+
+	public Send(DatagramSocket ds) {
 		this.ds = ds;
 	}
 
-
-	public void run()
-	{
-		try
-		{
+	public void run() {
+		try {
 			BufferedReader bufr = new BufferedReader(new InputStreamReader(System.in));
 
 			String line = null;
 
-			while((line=bufr.readLine())!=null)
-			{
-				
+			while ((line = bufr.readLine()) != null) {
 
 				byte[] buf = line.getBytes();
 
-				DatagramPacket dp = 
-					new DatagramPacket(buf,buf.length,InetAddress.getByName("192.168.1.255"),10002);
+				DatagramPacket dp = new DatagramPacket(buf, buf.length, InetAddress.getByName("192.168.1.255"), 10002);
 
 				ds.send(dp);
 
-				if("886".equals(line))
+				if ("886".equals(line))
 					break;
 			}
-		}
-		catch (Exception e)
-		{
+		} catch (Exception e) {
 			throw new RuntimeException("发送端失败");
 		}
 	}
 }
 
-class Rece implements Runnable
-{
+class Rece implements Runnable {
 
 	private DatagramSocket ds;
-	public Rece(DatagramSocket ds)
-	{
+
+	public Rece(DatagramSocket ds) {
 		this.ds = ds;
 	}
-	public void run()
-	{
-		try
-		{
-			while(true)
-			{
+
+	public void run() {
+		try {
+			while (true) {
 				byte[] buf = new byte[1024];
-				DatagramPacket dp = new DatagramPacket(buf,buf.length);
+				DatagramPacket dp = new DatagramPacket(buf, buf.length);
 
 				ds.receive(dp);
 
-
 				String ip = dp.getAddress().getHostAddress();
 
-				String data = new String(dp.getData(),0,dp.getLength());
+				String data = new String(dp.getData(), 0, dp.getLength());
 
-				if("886".equals(data))
-				{
-					System.out.println(ip+"....离开聊天室");
+				if ("886".equals(data)) {
+					System.out.println(ip + "....离开聊天室");
 					break;
 				}
 
-
-				System.out.println(ip+":"+data);
+				System.out.println(ip + ":" + data);
 			}
-		}
-		catch (Exception e)
-		{
+		} catch (Exception e) {
 			throw new RuntimeException("接收端失败");
 		}
 	}
 }
 
-
-class  ChatDemo
-{
-	public static void main(String[] args) throws Exception
-	{
+class ChatDemo {
+	public static void main(String[] args) throws Exception {
 		DatagramSocket sendSocket = new DatagramSocket();
 		DatagramSocket receSocket = new DatagramSocket(10002);
 
