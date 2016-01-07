@@ -1,0 +1,4 @@
+redis.host=
+redis.port=
+redis.timeout=20000
+redis.password=
