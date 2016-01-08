@@ -18,78 +18,66 @@ package a13_String;
 
 */
 
-class StringTest 
-{
+class StringTest {
 
-	public static void sop(String str)
-	{
+	public static void sop(String str) {
 		System.out.println(str);
 	}
-	public static void main(String[] args) 
-	{
+
+	public static void main(String[] args) {
 		String s = "      ab cd      ";
 
-		sop("("+s+")");
-//		s = myTrim(s);
-//		sop("("+s+")");
+		sop("(" + s + ")");
+		// s = myTrim(s);
+		// sop("("+s+")");
 
-		sop("("+reverseString(s)+")");
-		
+		sop("(" + reverseString(s) + ")");
+
 	}
 
-
-	//练习二：将字符串反转。
+	// 练习二：将字符串反转。
 	/*
-	思路：
-	1，将字符串变成数组。
-	2，对数组反转。
-	3，将数组变成字符串。
-	*/
+	 * 思路： 1，将字符串变成数组。 2，对数组反转。 3，将数组变成字符串。
+	 */
 
-	public static String reverseString(String s,int start,int end)
-	{
-		//字符串变数组。
+	public static String reverseString(String s, int start, int end) {
+		// 字符串变数组。
 		char[] chs = s.toCharArray();
 
-		//反转数组。
-		reverse(chs,start,end);
+		// 反转数组。
+		reverse(chs, start, end);
 
-		//将数组变成字符串。
+		// 将数组变成字符串。
 		return new String(chs);
 	}
-	public static String reverseString(String s)
-	{
-		return reverseString(s,0,s.length());
-		
+
+	public static String reverseString(String s) {
+		return reverseString(s, 0, s.length());
+
 	}
 
-	private static void reverse(char[] arr,int x,int y)
-	{
-		for(int start=x,end=y-1; start<end ; start++,end--)
-		{
-			swap(arr,start,end);
+	private static void reverse(char[] arr, int x, int y) {
+		for (int start = x, end = y - 1; start < end; start++, end--) {
+			swap(arr, start, end);
 		}
 	}
-	private static void swap(char[] arr,int x,int y)
-	{
+
+	private static void swap(char[] arr, int x, int y) {
 		char temp = arr[x];
 		arr[x] = arr[y];
 		arr[y] = temp;
 	}
 
-	//练习一，去除字符串两端空格。
-	public static String myTrim(String str)
-	{
-		int start = 0,end = str.length()-1;
+	// 练习一，去除字符串两端空格。
+	public static String myTrim(String str) {
+		int start = 0, end = str.length() - 1;
 
-		while(start<=end && str.charAt(start)==' ')
+		while (start <= end && str.charAt(start) == ' ')
 			start++;
 
-		while(start<=end && str.charAt(end)==' ')
+		while (start <= end && str.charAt(end) == ' ')
 			end--;
 
-		return str.substring(start,end+1);
+		return str.substring(start, end + 1);
 	}
 }
-
-

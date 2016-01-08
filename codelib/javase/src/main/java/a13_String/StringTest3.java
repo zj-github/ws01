@@ -9,45 +9,38 @@ package a13_String;
 			如果包含，已经找到！。
 */
 
-class  StringTest3
-{
+class StringTest3 {
 	/*
-	练习四。
-	*/
-	public static String getMaxSubString(String s1,String s2)
-	{
+	 * 练习四。
+	 */
+	public static String getMaxSubString(String s1, String s2) {
 
-		String max = "",min = "";
+		String max = "", min = "";
 
-		max = (s1.length()>s2.length())?s1: s2;
+		max = (s1.length() > s2.length()) ? s1 : s2;
 
-		min = (max==s1)?s2: s1;
-		
-//		sop("max="+max+"...min="+min);
-		for(int x=0; x<min.length(); x++)
-		{
-			for(int y=0,z=min.length()-x; z!=min.length()+1; y++,z++)
-			{
-				String temp = min.substring(y,z);
-				
+		min = (max == s1) ? s2 : s1;
+
+		// sop("max="+max+"...min="+min);
+		for (int x = 0; x < min.length(); x++) {
+			for (int y = 0, z = min.length() - x; z != min.length() + 1; y++, z++) {
+				String temp = min.substring(y, z);
+
 				sop(temp);
-				if(max.contains(temp))//if(s1.indexOf(temp)!=-1)
+				if (max.contains(temp))// if(s1.indexOf(temp)!=-1)
 					return temp;
 			}
 		}
 		return "";
 	}
 
-
-	public static void main(String[] args) 
-	{
+	public static void main(String[] args) {
 		String s1 = "ab";
 		String s2 = "cvhellobnm";
-		sop(getMaxSubString(s2,s1));
+		sop(getMaxSubString(s2, s1));
 	}
 
-	public static void sop(String str)
-	{
+	public static void sop(String str) {
 		System.out.println(str);
 	}
 }
