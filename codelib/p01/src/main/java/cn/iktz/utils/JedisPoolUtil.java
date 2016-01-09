@@ -13,7 +13,7 @@ import redis.clients.jedis.JedisPoolConfig;
 
 public class JedisPoolUtil {
 
-	{
+	static {
 		JedisPoolConfig jedisPoolConfig = initPoolConfig();
 		// ResourceBundle bundle = ResourceBundle.getBundle("redis_config");
 		// String host = bundle.getString("redis.host");

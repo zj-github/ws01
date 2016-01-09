@@ -25,12 +25,6 @@ public class ARTService {
 		return arts;
 	}
 	public ART getART(String sn){
-//		private String title ;
-//		private String h2 ;
-//		private String content;
-//		private String sn;
-//		private String biz;
-//		private String ct;
 		
 		List<String> list = JedisPoolUtil.get("wx_art"+sn,"title","h2","content" );
 		ART a = new ART();

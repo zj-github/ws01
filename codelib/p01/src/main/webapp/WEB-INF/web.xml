@@ -4,14 +4,35 @@
 
 <web-app>
   <display-name>Archetype Created Web Application</display-name>
+  <filter>
+  	<filter-name>DetailFilter</filter-name>
+  	<display-name>DetailFilter</display-name>
+  	<description></description>
+  	<filter-class>cn.iktz.p01.filter.DetailFilter</filter-class>
+  </filter>
+  <filter-mapping>
+  	<filter-name>DetailFilter</filter-name>
+  	<url-pattern>/detail/*</url-pattern>
+  </filter-mapping>
   <servlet>
   	<servlet-name>ManagerServlet</servlet-name>
   	<display-name>ManagerServlet</display-name>
   	<description></description>
   	<servlet-class>cn.iktz.servlets.ManagerServlet</servlet-class>
   </servlet>
+  <servlet>
+  	<servlet-name>ListServlet</servlet-name>
+  	<display-name>ListServlet</display-name>
+  	<description></description>
+  	<servlet-class>cn.iktz.servlets.ListServlet</servlet-class>
+  </servlet>
   <servlet-mapping>
   	<servlet-name>ManagerServlet</servlet-name>
-  	<url-pattern>/ManagerServlet</url-pattern>
+  	<url-pattern>/m</url-pattern>
   </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>ListServlet</servlet-name>
+  	<url-pattern>/l</url-pattern>
+  </servlet-mapping>
+  
 </web-app>

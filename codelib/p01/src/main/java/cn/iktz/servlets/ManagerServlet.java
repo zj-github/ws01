@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import cn.iktz.p01.service.URLService;
+import cn.iktz.utils.URLUtil;
 public class ManagerServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	public ManagerServlet() {
@@ -15,11 +16,10 @@ public class ManagerServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		String url = request.getParameter("u");
+		String[] urls = URLUtil.getUrlsByParams(request.getParameter("u"));
 		try {
-			URLService.acceptUrl(url);
+			URLService.acceptUrl(urls);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
