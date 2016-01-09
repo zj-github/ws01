@@ -13,7 +13,7 @@
   <meta name="apple-mobile-web-app-capable" content="yes"> 
   <meta name="apple-mobile-web-app-status-bar-style" content="black"> 
   <meta name="format-detection" content="telephone=no"> 
-  <title><!-- 1--></title> 
+  <title>iktz.cn - Top12</title> 
   <link rel="stylesheet" type="text/css" href="http://res.wx.qq.com/mmbizwap/zh_CN/htmledition/style/page/appmsg/page_mp_article_improve2a7a3f.css"> 
   <link rel="stylesheet" type="text/css" href="http://res.wx.qq.com/mmbizwap/zh_CN/htmledition/style/page/appmsg/page_mp_article_improve_combo2a7a3f.css"> 
  </head> 
@@ -39,7 +39,7 @@
      <div class="qr_code_pc_inner"> 
       <div class="qr_code_pc"> 
        <img id="js_pc_qr_code_img" class="qr_code_pc_img"> 
-       <p>微信扫一扫<br>关注该公众号</p> 
+       <p>微信扫一扫<br>关注该iktz众号</p> 
       </div> 
      </div> 
     </div> 

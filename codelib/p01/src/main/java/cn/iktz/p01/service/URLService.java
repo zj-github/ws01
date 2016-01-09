@@ -7,6 +7,7 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+import org.junit.Test;
 
 import cn.iktz.p01.beans.Constant;
 import cn.iktz.utils.ImgUtil;
@@ -20,30 +21,34 @@ public class URLService {
 		Document doc = Jsoup.connect(url).get();
 		
 		String title = doc.title();
-		String h2 = doc.select("h2.rich_media_title").text();
+		String h2 = doc.select("div.rich_media_area_primary>h2.rich_media_title").text();
 		
 		
 		Elements contentElement = doc.select("div.rich_media_content");
-		String content = contentElement.html();
 		
+		String content = contentElement.html();
 		
 		Elements select = contentElement.select("img[data-src]");
 		for (Element element : select) {
 			String imgsrc = element.attr("data-src");
 			
-			String imgfmt = imgsrc.substring(imgsrc.indexOf("?wx_fmt=")).trim();
+			String imgfmt = imgsrc.substring(imgsrc.indexOf("?wx_fmt=")+8).trim();
 			try {
 				Map<String,String> imgmap = new HashMap<>();
-				String down = ImgUtil.down(imgsrc);
+				String down = ImgUtil.down(imgsrc,imgfmt);
+				
 				imgmap.put("imgbytearr", down);
 				imgmap.put("imgurl",imgsrc);
 				imgmap.put("arturl",url);
 				imgmap.put("imgfmt",imgfmt);
 				
 				String encoderByMd5 = MD5Util.encoderByMd5(imgsrc);
-				content = content.replace(imgsrc, "http://localhost:8080/img/"+encoderByMd5);
-				
+				String d ="data-src=\""+imgsrc+"\"";
+				content = content.replace(d, "src=\"http://localhost:8080/img/"+encoderByMd5+"\"");
+//				System.out.println(content);
 				System.out.println("save img >> "+imgsrc);
+				System.out.println("----------------");
+				System.out.println("----------------");
 				JedisPoolUtil.set(Constant.IMG_KEY+encoderByMd5, imgmap);
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -72,8 +77,14 @@ public class URLService {
 		}
 	}
 	
-	public static void saveimg(Element contentElement,String imgurl,String arturl){
+	@Test
+	public   void saveimg( ){
+		int h=887 ,w=2483;
+		
+//		295 >>> 670
+		System.out.println(Math.round(h*670*1.0/w));
 		
 	}
+	
 	
 }

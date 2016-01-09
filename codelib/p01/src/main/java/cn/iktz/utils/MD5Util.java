@@ -11,6 +11,6 @@ public class MD5Util {
 		BASE64Encoder base64en = new BASE64Encoder();
 		// 加密后的字符串
 		String newstr = base64en.encode(md5.digest(str.getBytes("utf-8")));
-		return newstr;
+		return newstr.replaceAll("/", "").replaceAll("=", "");
 	}
 }

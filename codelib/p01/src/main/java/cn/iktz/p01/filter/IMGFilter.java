@@ -1,7 +1,10 @@
 package cn.iktz.p01.filter;
 
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
 
+import javax.imageio.ImageIO;
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
@@ -11,8 +14,6 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import org.apache.commons.io.IOUtils;
 
 import cn.iktz.p01.beans.Constant;
 import cn.iktz.utils.Base64Util;
@@ -50,10 +51,24 @@ public class IMGFilter implements Filter {
 		String id = p.split("/")[2];
 //		res.setHeader("Content-Type", "application/octet-stream");
 		res.setContentType("image/jpeg");
-		String imgbytearr = JedisPoolUtil.get(Constant.IMG_KEY + id, "imgbytearr").get(0);
+		String imgbytearrstr = JedisPoolUtil.get(Constant.IMG_KEY + id, "imgbytearr").get(0);
 
 		ServletOutputStream outputStream = response.getOutputStream();
-		IOUtils.write(Base64Util.decode(imgbytearr), outputStream);
+		byte[] imgbytearr = Base64Util.decode(imgbytearrstr);
+		
+
+		ByteArrayInputStream b = new ByteArrayInputStream(imgbytearr);
+		
+//		BufferedImage read1 = new BufferedImage(33, 44, 0);
+		
+		BufferedImage read = ImageIO.read(b);
+		
+		
+		ImageIO.write(read, "jpeg", outputStream);
+		
+//		BufferedImage image = ImageIO.read();
+		
+		
 	}
 
 	/**

@@ -42,7 +42,7 @@
   </servlet-mapping>
   <servlet-mapping>
   	<servlet-name>ListServlet</servlet-name>
-  	<url-pattern>/l</url-pattern>
+  	<url-pattern>/list</url-pattern>
   </servlet-mapping>
   
 </web-app>
