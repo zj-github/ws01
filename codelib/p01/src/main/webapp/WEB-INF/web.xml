@@ -10,9 +10,19 @@
   	<description></description>
   	<filter-class>cn.iktz.p01.filter.DetailFilter</filter-class>
   </filter>
+  <filter>
+  	<filter-name>IMGFilter</filter-name>
+  	<display-name>IMGFilter</display-name>
+  	<description></description>
+  	<filter-class>cn.iktz.p01.filter.IMGFilter</filter-class>
+  </filter>
   <filter-mapping>
   	<filter-name>DetailFilter</filter-name>
   	<url-pattern>/detail/*</url-pattern>
+  </filter-mapping>
+  <filter-mapping>
+  	<filter-name>IMGFilter</filter-name>
+  	<url-pattern>/IMGFilter</url-pattern>
   </filter-mapping>
   <servlet>
   	<servlet-name>ManagerServlet</servlet-name>

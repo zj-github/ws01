@@ -5,23 +5,47 @@ import java.util.Map;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 
+import cn.iktz.p01.beans.Constant;
+import cn.iktz.utils.ImgUtil;
 import cn.iktz.utils.JedisPoolUtil;
+import cn.iktz.utils.MD5Util;
 
 public class URLService {
 
 	
 	public static void acceptUrl(String url) throws Exception{
-		//1、html title
-		//2、h2 
-		//3、content
-//		String s = "http://mp.weixin.qq.com/s?__biz=MjM5ODYxMDA5OQ==&mid=403209303&idx=1&sn=f4fea7390b3a2c31e693189aee44af59&scene=0#wechat_redirect";
-//		String s = "http://mp.weixin.qq.com/s?__biz=MzAwNjMxMTA5Mw==&mid=401497949&idx=1&sn=e446ea237172978120351eb1b83e06b4&scene=0#wechat_redirect";
 		Document doc = Jsoup.connect(url).get();
+		
 		String title = doc.title();
 		String h2 = doc.select("h2.rich_media_title").text();
-		String content = doc.select("div.rich_media_content").html();
-
+		
+		
+		Elements contentElement = doc.select("div.rich_media_content");
+		String content = contentElement.html();
+		
+		
+		Elements select = contentElement.select("img[data-src]");
+		for (Element element : select) {
+			String imgsrc = element.attr("data-src");
+			String imgfmt = imgsrc.substring(imgsrc.indexOf("?wx_fmt=")).trim();
+			try {
+				Map<String,String> imgmap = new HashMap<>();
+				imgmap.put("imgbytearr", ImgUtil.down(imgsrc));
+				imgmap.put("imgurl",imgsrc);
+				imgmap.put("arturl",url);
+				imgmap.put("imgfmt",imgfmt);
+				String encoderByMd5 = MD5Util.encoderByMd5(imgsrc);
+				content = content.replace(imgsrc, "/img/"+encoderByMd5);
+				System.out.println("save img >> "+imgsrc);
+				JedisPoolUtil.set(Constant.IMG_KEY+encoderByMd5, imgmap);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
 		String biz  = url.substring(url.indexOf("__biz=")+6, url.indexOf("&mid="));
 		String sn = url.substring(url.indexOf("&sn=")+4,url.indexOf("&scene="));
 		
@@ -31,7 +55,8 @@ public class URLService {
 		m.put("sn",sn);
 		m.put("title",title);
 		m.put("content",content);
-		JedisPoolUtil.set("wx_art:", m);
+		System.out.println(url);
+		JedisPoolUtil.set(Constant.ART_KEY, m);
 	}
 	public static void acceptUrl(String ...urls){
 		for (String url : urls) {
@@ -42,6 +67,9 @@ public class URLService {
 			}
 		}
 	}
-
+	
+	public static void saveimg(Element contentElement,String imgurl,String arturl){
+		
+	}
 	
 }

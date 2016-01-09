@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Set;
 
 import cn.iktz.p01.beans.ART;
+import cn.iktz.p01.beans.Constant;
 import cn.iktz.utils.JedisPoolUtil;
 
 public class ARTService {
@@ -26,7 +27,7 @@ public class ARTService {
 	}
 	public ART getART(String sn){
 		
-		List<String> list = JedisPoolUtil.get("wx_art"+sn,"title","h2","content" );
+		List<String> list = JedisPoolUtil.get(Constant.ART_KEY+sn,"title","h2","content" );
 		ART a = new ART();
 		a.setTitle(list.get(0));
 		a.setH2(list.get(1));

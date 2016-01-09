@@ -15,8 +15,8 @@ public class ImgUtil {
 		}
 		return out.toByteArray();
 	}
-	public static byte[] down(String imgURL) throws Exception{
-		return streamToByte(new URL(imgURL).openStream());
+	public static String down(String imgURL) throws Exception{
+		return Base64Util.encode(streamToByte(new URL(imgURL).openStream()));
 	}
 
 	

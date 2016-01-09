@@ -16,7 +16,8 @@ public class ManagerServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		String[] urls = URLUtil.getUrlsByParams(request.getParameter("u"));
+		String urlStr = request.getParameter("u");
+		String[] urls = URLUtil.getUrlsByParams(urlStr);
 		try {
 			URLService.acceptUrl(urls);
 		} catch (Exception e) {
