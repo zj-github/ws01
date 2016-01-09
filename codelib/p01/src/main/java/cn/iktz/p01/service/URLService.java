@@ -30,15 +30,19 @@ public class URLService {
 		Elements select = contentElement.select("img[data-src]");
 		for (Element element : select) {
 			String imgsrc = element.attr("data-src");
+			
 			String imgfmt = imgsrc.substring(imgsrc.indexOf("?wx_fmt=")).trim();
 			try {
 				Map<String,String> imgmap = new HashMap<>();
-				imgmap.put("imgbytearr", ImgUtil.down(imgsrc));
+				String down = ImgUtil.down(imgsrc);
+				imgmap.put("imgbytearr", down);
 				imgmap.put("imgurl",imgsrc);
 				imgmap.put("arturl",url);
 				imgmap.put("imgfmt",imgfmt);
+				
 				String encoderByMd5 = MD5Util.encoderByMd5(imgsrc);
-				content = content.replace(imgsrc, "/img/"+encoderByMd5);
+				content = content.replace(imgsrc, "http://localhost:8080/img/"+encoderByMd5);
+				
 				System.out.println("save img >> "+imgsrc);
 				JedisPoolUtil.set(Constant.IMG_KEY+encoderByMd5, imgmap);
 			} catch (Exception e) {
@@ -56,7 +60,7 @@ public class URLService {
 		m.put("title",title);
 		m.put("content",content);
 		System.out.println(url);
-		JedisPoolUtil.set(Constant.ART_KEY, m);
+		JedisPoolUtil.set(Constant.ART_KEY+sn, m);
 	}
 	public static void acceptUrl(String ...urls){
 		for (String url : urls) {

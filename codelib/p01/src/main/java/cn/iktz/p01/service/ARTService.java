@@ -11,7 +11,7 @@ import cn.iktz.utils.JedisPoolUtil;
 public class ARTService {
 	
 	public List<ART> getKeyList() throws Exception {
-		Set<String> keys = JedisPoolUtil.keys("wx_art*");
+		Set<String> keys = JedisPoolUtil.keys(Constant.ART_KEY+"*");
 		List<ART> arts = new ArrayList<>();
 		for (String s : keys) {
 			ART a = new ART();

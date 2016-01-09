@@ -1,10 +1,6 @@
 package cn.iktz.p01.filter;
 
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.util.List;
 
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
@@ -14,6 +10,7 @@ import javax.servlet.ServletOutputStream;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.io.IOUtils;
 
@@ -47,10 +44,12 @@ public class IMGFilter implements Filter {
 			throws IOException, ServletException {
 
 		HttpServletRequest req = (HttpServletRequest) request;
+		HttpServletResponse res = (HttpServletResponse) response;
 		String p = req.getServletPath();
 		System.out.println(p);
 		String id = p.split("/")[2];
-
+//		res.setHeader("Content-Type", "application/octet-stream");
+		res.setContentType("image/jpeg");
 		String imgbytearr = JedisPoolUtil.get(Constant.IMG_KEY + id, "imgbytearr").get(0);
 
 		ServletOutputStream outputStream = response.getOutputStream();

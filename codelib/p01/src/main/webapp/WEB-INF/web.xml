@@ -22,7 +22,7 @@
   </filter-mapping>
   <filter-mapping>
   	<filter-name>IMGFilter</filter-name>
-  	<url-pattern>/IMGFilter</url-pattern>
+  	<url-pattern>/img/*</url-pattern>
   </filter-mapping>
   <servlet>
   	<servlet-name>ManagerServlet</servlet-name>
