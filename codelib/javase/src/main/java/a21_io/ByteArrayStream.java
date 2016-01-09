@@ -1,4 +1,5 @@
 package a21_io;
+
 /*
 用于操作字节数组的流对象。
 
@@ -24,29 +25,25 @@ ByteArrayOutputStream： 在构造的时候，不用定义数据目的，因为该对象中已经内部封装
 
 */
 import java.io.*;
-class ByteArrayStream 
-{
-	public static void main(String[] args) 
-	{
-		//数据源。
+
+class ByteArrayStream {
+	public static void main(String[] args) {
+		// 数据源。
 		ByteArrayInputStream bis = new ByteArrayInputStream("ABCDEFD".getBytes());
 
-		//数据目的
+		// 数据目的
 		ByteArrayOutputStream bos = new ByteArrayOutputStream();
 
 		int by = 0;
 
-		while((by=bis.read())!=-1)
-		{
+		while ((by = bis.read()) != -1) {
 			bos.write(by);
 		}
-
-
 
 		System.out.println(bos.size());
 		System.out.println(bos.toString());
 
-	//	bos.writeTo(new FileOutputStream("a.txt"));
+		// bos.writeTo(new FileOutputStream("a.txt"));
 
 	}
 }

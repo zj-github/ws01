@@ -1,4 +1,5 @@
 package a20_io;
+
 import java.io.*;
 
 /*
@@ -36,110 +37,84 @@ File类常见方法：
 
 */
 
-
-class FileDemo 
-{
-	public static void main(String[] args) throws IOException
-	{
+class FileDemo {
+	public static void main(String[] args) throws IOException {
 		method_5();
 	}
 
-	public static void method_5()
-	{
+	public static void method_5() {
 		File f1 = new File("c:\\Test.java");
 		File f2 = new File("d:\\hahah.java");
 
-		sop("rename:"+f2.renameTo(f1));
+		sop("rename:" + f2.renameTo(f1));
 
 	}
 
-	public static void method_4()
-	{
+	public static void method_4() {
 		File f = new File("file.txt");
 
-		sop("path:"+f.getPath());
-		sop("abspath:"+f.getAbsolutePath());
-		sop("parent:"+f.getParent());//该方法返回的是绝对路径中的父目录。如果获取的是相对路径，返回null。
-									//如果相对路径中有上一层目录那么该目录就是返回结果。
-
-
+		sop("path:" + f.getPath());
+		sop("abspath:" + f.getAbsolutePath());
+		sop("parent:" + f.getParent());// 该方法返回的是绝对路径中的父目录。如果获取的是相对路径，返回null。
+										// 如果相对路径中有上一层目录那么该目录就是返回结果。
 
 	}
-	
-	public static void method_3()throws IOException
-	{
+
+	public static void method_3() throws IOException {
 		File f = new File("d:\\java1223\\day20\\file2.txt");
 
-		//f.createNewFile();
+		// f.createNewFile();
 
-		//f.mkdir();
+		// f.mkdir();
 
-
-		//记住在判断文件对象是否是文件或者目的时，必须要先判断该文件对象封装的内容是否存在。
-		//通过exists判断。
-		sop("dir:"+f.isDirectory());
-		sop("file:"+f.isFile());
+		// 记住在判断文件对象是否是文件或者目的时，必须要先判断该文件对象封装的内容是否存在。
+		// 通过exists判断。
+		sop("dir:" + f.isDirectory());
+		sop("file:" + f.isFile());
 
 		sop(f.isAbsolute());
 	}
 
-
-	public static void method_2()
-	{
+	public static void method_2() {
 		File f = new File("file.txt");
 
-		//sop("exists:"+f.exists());
+		// sop("exists:"+f.exists());
 
-		//sop("execute:"+f.canExecute());
+		// sop("execute:"+f.canExecute());
 
-		//创建文件夹
+		// 创建文件夹
 		File dir = new File("abc\\kkk\\a\\a\\dd\\ee\\qq\\aaa");
 
-		sop("mkdir:"+dir.mkdirs());
+		sop("mkdir:" + dir.mkdirs());
 	}
-	
 
-	public static void method_1()throws IOException
-	{
+	public static void method_1() throws IOException {
 		File f = new File("file.txt");
-//		sop("create:"+f.createNewFile());
-		//sop("delete:"+f.delete());
+		// sop("create:"+f.createNewFile());
+		// sop("delete:"+f.delete());
 
-
-
-		
 	}
 
-
-
-
-
-
-
-	//创建File对象
-	public static void consMethod()
-	{
-		//将a.txt封装成file对象。可以将已有的和为出现的文件或者文件夹封装成对象。
+	// 创建File对象
+	public static void consMethod() {
+		// 将a.txt封装成file对象。可以将已有的和为出现的文件或者文件夹封装成对象。
 		File f1 = new File("a.txt");
 
 		//
-		File f2 = new File("c:\\abc","b.txt");
-
+		File f2 = new File("c:\\abc", "b.txt");
 
 		File d = new File("c:\\abc");
-		File f3 = new File(d,"c.txt");
+		File f3 = new File(d, "c.txt");
 
-		sop("f1:"+f1);
-		sop("f2:"+f2);
-		sop("f3:"+f3);
+		sop("f1:" + f1);
+		sop("f2:" + f2);
+		sop("f3:" + f3);
 
-		File f4 = new File("c:"+File.separator+"abc"+File.separator+"zzz"+File.separator+"a.txt");
-
+		File f4 = new File("c:" + File.separator + "abc" + File.separator + "zzz" + File.separator + "a.txt");
 
 	}
 
-	public static void sop(Object obj)
-	{
+	public static void sop(Object obj) {
 		System.out.println(obj);
 	}
 }

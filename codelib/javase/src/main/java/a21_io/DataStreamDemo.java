@@ -1,4 +1,5 @@
 package a21_io;
+
 /*
 DataInputStream与DataOutputStream
 
@@ -6,25 +7,25 @@ DataInputStream与DataOutputStream
 
 */
 import java.io.*;
-class DataStreamDemo 
-{
-	public static void main(String[] args) throws IOException
-	{
-		//writeData();
-		//readData();
 
-		//writeUTFDemo();
+class DataStreamDemo {
+	public static void main(String[] args) throws IOException {
+		// writeData();
+		// readData();
 
-//		OutputStreamWriter osw = new OutputStreamWriter(new FileOutputStream("gbk.txt"),"gbk");
-//
-//		osw.write("你好");
-//		osw.close();
+		// writeUTFDemo();
 
-//		readUTFDemo();
+		// OutputStreamWriter osw = new OutputStreamWriter(new
+		// FileOutputStream("gbk.txt"),"gbk");
+		//
+		// osw.write("你好");
+		// osw.close();
+
+		// readUTFDemo();
 
 	}
-	public static void readUTFDemo()throws IOException
-	{
+
+	public static void readUTFDemo() throws IOException {
 		DataInputStream dis = new DataInputStream(new FileInputStream("utf.txt"));
 
 		String s = dis.readUTF();
@@ -33,10 +34,7 @@ class DataStreamDemo
 		dis.close();
 	}
 
-
-
-	public static void writeUTFDemo()throws IOException
-	{
+	public static void writeUTFDemo() throws IOException {
 		DataOutputStream dos = new DataOutputStream(new FileOutputStream("utfdate.txt"));
 
 		dos.writeUTF("你好");
@@ -44,22 +42,21 @@ class DataStreamDemo
 		dos.close();
 	}
 
-	public static void readData()throws IOException
-	{
+	public static void readData() throws IOException {
 		DataInputStream dis = new DataInputStream(new FileInputStream("data.txt"));
 
 		int num = dis.readInt();
 		boolean b = dis.readBoolean();
 		double d = dis.readDouble();
 
-		System.out.println("num="+num);
-		System.out.println("b="+b);
-		System.out.println("d="+d);
+		System.out.println("num=" + num);
+		System.out.println("b=" + b);
+		System.out.println("d=" + d);
 
 		dis.close();
 	}
-	public static void writeData()throws IOException
-	{
+
+	public static void writeData() throws IOException {
 		DataOutputStream dos = new DataOutputStream(new FileOutputStream("data.txt"));
 
 		dos.writeInt(234);
@@ -71,6 +68,5 @@ class DataStreamDemo
 		ObjectOutputStream oos = null;
 		oos.writeObject(new Object());
 
-		
 	}
 }

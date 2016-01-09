@@ -19,6 +19,7 @@ class  ReadIn
 	{
 		InputStream in = System.in;
 		StringBuilder sb = new StringBuilder();
+		BufferedInputStream bis = new BufferedInputStream(in);
 
 		while(true)
 		{
