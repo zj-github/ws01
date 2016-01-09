@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<rule>
+	<crawl>
+		<tablename></tablename>
+		<url></url>
+		<field>
+			<uniquename></uniquename>
+			<columnname></columnname>
+			<element></element>
+			<attr></attr>
+		</field>
+		<field>
+			<uniquename></uniquename>
+			<columnname></columnname>
+			<element></element>
+			<attr></attr>
+		</field>
+	</crawl>
+</rule>
