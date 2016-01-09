@@ -8,6 +8,8 @@ import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 
+import cn.iktz.utils.ImgUtil;
+
 /**
  * Servlet Filter implementation class IMGFilter
  */
@@ -31,6 +33,9 @@ public class IMGFilter implements Filter {
 	 * @see Filter#doFilter(ServletRequest, ServletResponse, FilterChain)
 	 */
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
+		
+		
+	
 		
 		chain.doFilter(request, response);
 	}

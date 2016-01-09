@@ -3,7 +3,9 @@
  */
 package cn.iktz.utils;
 
+import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
@@ -70,5 +72,33 @@ public class JedisPoolUtil {
 		} finally {
 			jedisPool.returnResource(jedis);
 		}
+	}
+
+	public static Set<String> keys(String pattern) {
+		Jedis jedis = null;
+		try {
+			jedis = jedisPool.getResource();
+			return jedis.keys(pattern);
+		} catch (Exception e) {
+			jedisPool.returnBrokenResource(jedis);
+			e.printStackTrace();
+		} finally {
+			jedisPool.returnResource(jedis);
+		}
+		return null;
+	}
+
+	public static List<String> get(String key, String ... fields) {
+		Jedis jedis = null;
+		try {
+			jedis = jedisPool.getResource();
+			return jedis.hmget(key, fields);
+		} catch (Exception e) {
+			jedisPool.returnBrokenResource(jedis);
+			e.printStackTrace();
+		} finally {
+			jedisPool.returnResource(jedis);
+		}
+		return null;
 	}
 }

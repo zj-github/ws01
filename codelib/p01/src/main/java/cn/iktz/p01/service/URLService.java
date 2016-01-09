@@ -28,8 +28,8 @@ public class URLService {
 		m.put("title",title);
 		m.put("content",content);
 		JedisPoolUtil.set("wx_art", m);
-		
 	}
+	
 
 	
 }

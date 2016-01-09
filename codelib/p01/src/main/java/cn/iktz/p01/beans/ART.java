@@ -3,19 +3,21 @@ package cn.iktz.p01.beans;
 public class ART {
 
 	private String key;
-	public String getKey() {
-		return key;
-	}
-	public void setKey(String key) {
-		this.key = key;
-	}
+	
 	private String title ;
 	private String h2 ;
 	private String content;
 	private String sn;
 	private String biz;
 	private String ct;
-
+	
+	
+	public String getKey() {
+		return key;
+	}
+	public void setKey(String key) {
+		this.key = key;
+	}
 	public String getTitle() {
 		return title;
 	}

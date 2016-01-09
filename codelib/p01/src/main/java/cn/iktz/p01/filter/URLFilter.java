@@ -48,7 +48,6 @@ public class URLFilter implements Filter {
 		ART art = new ARTService().getART(sn);
 		req.setAttribute("art", art);
 		req.getRequestDispatcher("/detail.jsp").forward(request, response);;
-//		chain.doFilter(request, response);
 	}
 
 	/**
