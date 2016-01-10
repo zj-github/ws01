@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<crawl>
+
+<crawlInfo>
 	<host id="www.renrentou.com">
 		<url>http://www.renrentou.com</url>
 		<updatefrequency>60000</updatefrequency>
-		<detailtype urlreg="http://www\\.renrentou\\.com/project/detail/project_id/*">
+		<detailTypes urlreg="http://www\\.renrentou\\.com/project/detail/project_id/*">
 			<tablename>ccfa_common</tablename>
 			<fields>
 				<field name="发起人">
@@ -15,7 +16,7 @@
 					<element>p.attention-p>i</element>
 				</field>
 			</fields>
-		</detailtype>
+		</detailTypes>
 	</host>
 	<host id="news.163.com">
 		<url>http://news.163.com</url>
@@ -34,4 +35,4 @@
 			</fields>
 		</detailtype>
 	</host>
-</crawl>
+</crawlInfo>

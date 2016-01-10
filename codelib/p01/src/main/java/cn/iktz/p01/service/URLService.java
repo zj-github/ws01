@@ -44,7 +44,7 @@ public class URLService {
 				
 				String encoderByMd5 = MD5Util.encoderByMd5(imgsrc);
 				String d ="data-src=\""+imgsrc+"\"";
-				content = content.replace(d, "src=\"http://localhost:8080/img/"+encoderByMd5+"\"");
+				content = content.replace(d, "src=\"http://iktz.cn/img/"+encoderByMd5+"\"");
 //				System.out.println(content);
 				System.out.println("save img >> "+imgsrc);
 				System.out.println("----------------");

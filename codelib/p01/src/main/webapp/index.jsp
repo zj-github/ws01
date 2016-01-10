@@ -5,7 +5,7 @@
 <!DOCTYPE html>
 <html>
 <body>
-	<%request.getRequestDispatcher("/list"); %>
+	<%request.getRequestDispatcher("/list").forward(request, response); %>
 </body>
 </html>
 
