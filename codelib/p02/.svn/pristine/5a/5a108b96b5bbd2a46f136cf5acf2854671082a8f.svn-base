@@ -1,0 +1,54 @@
+//package cn.innohub.crawler.firstlevel.seeds.extract;
+//
+//import java.util.Map;
+//import java.util.concurrent.ConcurrentHashMap;
+//
+//import org.apache.log4j.Logger;
+//
+//import cn.innohub.crawler.beans.FirstLevelSeed;
+//import cn.innohub.crawler.core.Context;
+//import cn.innohub.crawler.core.ThreadController;
+//import cn.innohub.crawler.parse.ParseCommonImpl;
+//import cn.innohub.crawler.parse.ParseTask;
+//
+///**
+// * @ClassName: FirstLevelExtractor
+// * @Description: 抽取一级种子
+// * @author zhangjie
+// * @date 2016年1月5日 下午2:21:14
+// *
+// */
+//public class FirstLevelExtractor implements Runnable {
+//
+//	@Override
+//	public void run() {
+//
+//	}
+//
+//	private Logger logger = Logger.getLogger(ParseCommonImpl.class);
+//
+//	private ThreadController lock = ThreadController.getInstance();
+//	private ConcurrentHashMap<String, FirstLevelSeed> firstLevelSeedMap = Context.getInstance().getFirstLevelSeedMap();
+//
+//	public void extract() {
+//
+//		try {
+//			logger.debug("firstLevelSeedMap size is >> " + firstLevelSeedMap.size());
+//			while (firstLevelSeedMap.size() == 0) { // 队列中没有htmlContent以后，线程等待
+//				logger.debug(
+//						"no first seeds in context " + Thread.currentThread().getName() + " will await until feeded");
+//				long currentTimeMillis = System.currentTimeMillis();
+//				Long long1 = ParseTask.tl.get();
+//				logger.debug("thread has run " + (currentTimeMillis - long1) + " m ");
+//				this.await();
+//			}
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}
+//	}
+//
+//	public void await() {
+//		lock.awaitFirstLevelSeedExtractThread();
+//	}
+//
+//}

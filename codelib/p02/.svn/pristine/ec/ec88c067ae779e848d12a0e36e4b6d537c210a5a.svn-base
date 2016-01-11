@@ -1,0 +1,22 @@
+package cn.innohub.crawler.core;
+
+public class Crawler {
+
+	public static void main(String[] args) {
+		new Crawler().start();
+		System.exit(0);
+	}
+
+	public void start() {
+		// 1、加载一级种子文件，加载抽取规则配置文件
+		// 2、启动线程，监听来自客户端的请求（加载一级种子文件的请求）
+		// 3、启动抽取一级种子种的详情页的线程
+		try {
+			Class.forName("cn.innohub.crawler.conf.ConfigurationLoader");
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+}

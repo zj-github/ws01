@@ -1,0 +1,8 @@
+package cn.innohub.crawler.common;
+
+public interface FileNameConstant {
+
+	public String FIELDS_EXTRACT_REG_XML = "fields-extract-reg.xml";
+	public String FIRST_LEVEL_SEEDS_XML = "first-level-seeds.xml";
+	
+}

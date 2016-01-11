@@ -1,0 +1,9 @@
+package cn.innohub.crawler.crawl.fetch;
+
+import cn.innohub.crawler.beans.CrawlDatum;
+
+public interface Fetcher {
+
+	CrawlDatum fetch();
+
+}

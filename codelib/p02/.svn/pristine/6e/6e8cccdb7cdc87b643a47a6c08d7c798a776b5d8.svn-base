@@ -1,0 +1,14 @@
+package cn.innohub.crawler.core;
+
+public class Crawler {
+
+	public static void main(String[] args) {
+		
+	}
+	
+	public void start(){
+		
+		
+		
+	}
+}

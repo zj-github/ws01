@@ -1,0 +1,48 @@
+package cn.innohub.crawler.core;
+
+import java.util.Date;
+import java.util.concurrent.ConcurrentHashMap;
+
+import cn.innohub.crawler.beans.ExtractRule;
+import cn.innohub.crawler.beans.FirstLevelSeed;
+
+public class Context {
+	/** 单例部分 start */
+	private static Context context = new Context();
+	private Context(){}
+	public static Context getInstance(){
+		return context;
+	}
+	/** 单例部分 end  */
+	
+	private Date seedsXMLLastModify;
+	public void setSeedsXMLLastModify(Date seedsXMLLastModify){
+		this.seedsXMLLastModify = seedsXMLLastModify;
+	}
+	public Date getSeedsXMLLastModify() {
+		return seedsXMLLastModify;
+	}
+	
+	private ConcurrentHashMap<String ,FirstLevelSeed> firstLevelSeedMap =new ConcurrentHashMap<>();
+	public void addFirstLevelSeed(String url ,FirstLevelSeed firstLevelSeed ){
+		firstLevelSeedMap.put(url, firstLevelSeed);
+	}
+	
+	public FirstLevelSeed getFirstLevelSeed(String url ){
+		return firstLevelSeedMap.get(url);
+	}
+	
+	private ConcurrentHashMap<String, ExtractRule> ruleMap=new  ConcurrentHashMap<>(); // 抽取规则
+	/**
+	 * @Description: 读取xml fields-extract-reg 封装成对象，放入ruleMap中
+	 * @author zhangjie
+	 * @date 2016年1月4日 下午1:52:19
+	 */
+	public void addRule(String hostName, ExtractRule extractRule) {
+		ruleMap.put(hostName, extractRule);
+	}
+	public ExtractRule getRule(String hostName) {
+		return ruleMap.get(hostName);
+	}
+	
+}

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	targetNamespace="http://www.innohub.cn" elementFormDefault="qualified">
+	<xs:element name='crawlinfo'>
+		<xs:complexType>
+			<xs:sequence maxOccurs='unbounded'>
+				<xs:element name='host'>
+					<xs:simpleContent>
+						<xs:simpleType>
+							<xs:restriction base="basetype">
+								<xs:attribute name="name" type="xs:string" />
+							</xs:restriction>
+						</xs:simpleType>
+					</xs:simpleContent>
+					<xs:complexType>
+						<xs:sequence>
+
+							<xs:element name='updatefrequency' type='xs:string' />
+							<xs:element name='detailpage'>
+								<xs:complexType>
+									<xs:sequence maxOccurs='1'>
+										<xs:element name='tablename' type='xs:string' />
+										<xs:element name="fields">
+											<xs:complexType>
+												<xs:all>
+													<xs:simpleContent>
+														<xs:simpleType>
+															<xs:restriction base="basetype">
+																<xs:attribute name="description" type="xs:string" />
+															</xs:restriction>
+														</xs:simpleType>
+													</xs:simpleContent>
+												</xs:all>
+												<xs:sequence maxOccurs='unbounded'>
+													<xs:element name="field">
+														<xs:complexType>
+															<xs:sequence>
+																<xs:element name='columnname' type='xs:string' />
+																<xs:element name='element' type='xs:string' />
+															</xs:sequence>
+														</xs:complexType>
+													</xs:element>
+												</xs:sequence>
+											</xs:complexType>
+										</xs:element>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

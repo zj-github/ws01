@@ -1,0 +1,144 @@
+package cn.innohub.crawler.rpc;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.lang.reflect.Method;
+import java.net.ServerSocket;
+import java.net.Socket;
+import java.util.Enumeration;
+import java.util.Iterator;
+import java.util.Map.Entry;
+import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
+import cn.innohub.crawler.beans.ExtractRule;
+import cn.innohub.crawler.beans.FirstLevelSeed;
+import cn.innohub.crawler.conf.Configuration;
+import cn.innohub.crawler.core.Context;
+import cn.innohub.crawler.packageapi.SafeTreeSet;
+
+public class RPCServer {
+	public static boolean shutdown = false;
+
+	public static void main(String[] args) {
+		try {
+			new RPCServer().startServer();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+	public void startServer() throws Exception {
+
+		int fetchThreadNum = 5; // 抓取线程数
+		ExecutorService fetchThreadPool = Executors.newFixedThreadPool(fetchThreadNum);
+
+		ServerSocket ss = new ServerSocket(10005);
+		try {
+			while (!shutdown) {
+				Socket s = ss.accept();
+				fetchThreadPool.submit(new ControlTask(s));
+			}
+		} finally {
+			if (ss != null) {
+				ss.close();
+			}
+		}
+	}
+
+	// 加载
+	// detail-seed.properties
+	// fields-extract-reg.xml
+	// first-level-seeds.xml
+
+	class ControlTask implements Runnable {
+		private Socket s = null;
+
+		public ControlTask(Socket s) {
+			this.s = s;
+		}
+
+		@Override
+		public void run() {
+			try {
+				String ip = s.getInetAddress().getHostAddress();
+				System.out.println(ip + "....connected");
+				BufferedReader bufIn = new BufferedReader(new InputStreamReader(s.getInputStream()));
+				String line = bufIn.readLine();
+
+				System.out.println(line);
+				// 反射调用方法
+				invoke(line);
+				ConcurrentHashMap<Object, Object> params = Context.getInstance().getParams();
+				Set<Entry<Object, Object>> entrySet = params.entrySet();
+				for( Entry<Object, Object> e :entrySet){
+					Object value = e.getValue();
+					Object key = e.getKey();
+					System.out.println(value);
+					System.out.println(key);
+				}
+				
+				SafeTreeSet firstLevelSeeds = Context.getInstance().getFirstLevelSeeds();
+				Iterator<FirstLevelSeed> it = firstLevelSeeds.iterator();
+				while(it.hasNext()){
+					FirstLevelSeed next = it.next();
+					System.out.println(next.toString());
+				}
+				
+				ConcurrentHashMap<String, ExtractRule> ruleMap = Context.getInstance().getRuleMap();
+				Set<Entry<String,ExtractRule>> entrySet2 = ruleMap.entrySet();
+				for( Entry<String,ExtractRule> e :entrySet2){
+					Object value = e.getValue();
+					Object key = e.getKey();
+					System.out.println(value.toString());
+					System.out.println(key.toString());
+				}
+				
+				System.out.println();
+			} catch (Exception e) {
+				e.printStackTrace();
+			} finally {
+				if (s != null) {
+					try {
+						s.close();
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+				}
+			}
+		}
+	}
+
+	/**
+	 * 
+	 * @Description: 反射调用放发
+	 * @author zhangjie
+	 * @date 2016年1月6日 下午1:33:38
+	 *
+	 */
+	public void invoke(String str) {
+		String[] s = parse(str);
+		String clazzName = s[0];
+		String methodName = s[1];
+		try {
+			Object oins = Class.forName(clazzName).newInstance();
+			Class<?> clazz = Class.forName(clazzName);
+			Method method = clazz.getMethod(methodName, new Class<?>[0]);
+			method.invoke(oins, new Object[0]);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	private String[] parse(String str) {
+		String[] s = new String[2];
+		int lastPointIndex = str.lastIndexOf(".");
+		s[1] = str.substring(lastPointIndex + 1);
+		s[0] = str.substring(0, lastPointIndex);
+		return s;
+	}
+}

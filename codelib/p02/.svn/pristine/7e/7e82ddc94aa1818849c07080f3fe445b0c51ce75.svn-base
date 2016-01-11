@@ -1,0 +1,37 @@
+package cn.innohub.crawler.core;
+
+import cn.innohub.crawler.fetch.FetchThreadContext;
+import cn.innohub.crawler.firstlevel.seeds.extract.FisrtLevelSeedThreadContext;
+import cn.innohub.crawler.parse.ParseThreadContext;
+import cn.innohub.crawler.rpc.RPCServer;
+
+public class Crawler {
+
+	public static void main(String[] args) {
+		new Crawler().start();
+		System.exit(0);
+	}
+
+	public void start() {
+		// 1、加载一级种子文件，加载抽取规则配置文件
+		// 2、启动线程，监听来自客户端的请求（加载一级种子文件的请求）
+		// 3、启动抽取一级种子的详情页的线程
+		// 4、启动抓取线程
+		// 5、启动解析线程
+		// 6、启动存储线程
+
+		// 1、加载配置文件
+		try {
+			Class.forName("cn.innohub.crawler.conf.ConfigurationLoader");
+			new RPCServer().startServer();
+			new FisrtLevelSeedThreadContext().fetch();
+			new FetchThreadContext().fetch();
+			new ParseThreadContext().parse();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		
+	}
+
+}

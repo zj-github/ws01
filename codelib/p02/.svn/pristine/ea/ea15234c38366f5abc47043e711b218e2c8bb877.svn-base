@@ -1,0 +1,20 @@
+package cn.innohub.crawler.conf;
+
+import org.apache.log4j.Logger;
+
+public class ConfigurationLoader {
+	static {
+		Logger.getLogger(ConfigurationLoader.class).info("load configuration");
+		new FieldsExtractRegReader().initConf();
+		new SeedsFileReader().update();// 加载一级种子文件
+	}
+	
+	public static void main(String[] args) {
+		try {
+			Class.forName("cn.innohub.crawler.conf.ConfigurationLoader");
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+}

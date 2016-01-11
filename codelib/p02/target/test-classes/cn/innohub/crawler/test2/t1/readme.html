@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>测试1</title>
+</head>
+<body>
+<pre>
+	测试模块：一级种子抽取模块
+	预期结果：获取一级种子种的符合规则的外链
+	测试方法：运行FisrtLevelSeedThreadContext中的main方法，打印详情页种子队列中的内容
+	测试过程：
+	{1}不符合预期
+	1、日志
+	FisrtLevelSeedWorkShop run
+	pool-1-thread-1 no seed in first leve seed set collection,pool-1-thread-1 will await until queue feed
+	a\一级种子文件配置
+	b\一级种子文件中的配置是否加入了集合SafeTreeSet firstLevelSeedSet
+	
+	原因：一级种子配置文件中的更新频率为null。
+	
+	修正方案：配置一级种子配置文件中的更新频率
+	
+	从新测试
+	{2}配置文件读取正常
+	
+	测试结果：正常抽取一级种子外链。
+	
+	【思考，抽取网页中指定区域的外链】
+	
+	</pre>
+</body>
+</html>

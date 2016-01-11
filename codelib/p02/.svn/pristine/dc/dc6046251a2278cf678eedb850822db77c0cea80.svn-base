@@ -1,0 +1,98 @@
+package cn.innohub.crawler.conf.test.t1;
+
+import java.util.List;
+
+import org.dom4j.Document;
+import org.dom4j.Element;
+import org.dom4j.Node;
+import org.junit.Test;
+
+import cn.innohub.crawler.common.utils.Dom4JUtil;
+import cn.innohub.crawler.common.utils.Path;
+import cn.innohub.crawler.core.Context;
+
+public class XMLReader {
+
+	public static void main(String[] args) throws Exception {
+		new XMLReader().readXML();
+	}
+
+	public void loadXML() {
+		Context.getInstance().getDetailPages().clear();
+		Context.getInstance().getFirstLevelSeeds().clear();
+		readXML();
+	}
+
+	public void readXML() {
+		try {
+			String xmlFilePath = Path.getClassPath() + "crawlinfo.xml";
+			// 1、封装host
+			Document doc = Dom4JUtil.getDocument(xmlFilePath);
+
+			@SuppressWarnings("unchecked")
+			List<Element> seedNodeList = doc.selectNodes("/crawlinfo/host");
+
+			for (Element hostElement : seedNodeList) {
+				String name = hostElement.attribute("name").getValue();
+				String url = hostElement.attribute("url").getValue();
+
+				/** 1、封装host */
+				Host host = new Host();
+				host.setName(name);
+				host.setUrl(url);
+				String updatefrequency = hostElement.selectSingleNode("updatefrequency").getText();
+				host.setUpdateFrequency(Long.parseLong(updatefrequency) * 1000);
+				@SuppressWarnings("unchecked")
+				List<Element> selectNodes = hostElement.selectNodes("detailpage");
+
+				String regGlobal = "";
+				for (Element e : selectNodes) {
+
+					String reg = e.attribute("reg").getValue();
+					String id = e.attribute("id").getValue();
+					// regGlobal += "(" + reg + ")|";
+
+					/** 2、封装DetailPage start */
+					DetailPage detailPage = new DetailPage();
+					detailPage.setReg(reg);
+					detailPage.setId(id);
+					Node tableNameNode = hostElement.selectSingleNode("tablename");
+					detailPage.setTablename(tableNameNode.getText());
+
+					@SuppressWarnings("unchecked")
+					List<Element> selectNodes2 = hostElement.selectNodes("fields/field");
+					for (Element element : selectNodes2) {
+						String columnname = element.selectSingleNode("columnname").getText();
+						String element1 = element.selectSingleNode("element").getText();
+						Node clazz = element.selectSingleNode("responseClazz");
+						String responseClazz = "";
+						if (clazz != null) {
+							responseClazz = clazz.getText();
+						}else{
+							responseClazz="cn.innohub.crawler.common.beans.HtmlText";
+						}
+						detailPage.setResponseClazz(responseClazz);
+						detailPage.setField(columnname, element1);
+					}
+
+					Context.getInstance().getDetailPages().put(id, detailPage);
+					/** 2、封装DetailPage end */
+				}
+				regGlobal = regGlobal.substring(0, regGlobal.length() - 1);
+				host.setDetailPageReg(regGlobal);
+				Context.getInstance().getFirstLevelSeeds().add(host);// 添加host
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	@Test
+	public void test() {
+		String reg = "(.+www\\.baidu\\.com)|(.+www\\.163\\.com)|";
+		reg = reg.substring(0, reg.length() - 1);
+		System.out.println(reg);
+		System.out.println("http://www.163.com".matches(reg));
+	}
+
+}

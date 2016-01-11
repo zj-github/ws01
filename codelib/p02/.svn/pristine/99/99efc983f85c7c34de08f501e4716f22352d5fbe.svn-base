@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<crawlinfo>
+	<host name="www.renrentou.com" url="http://www.renrentou.com/">
+		<updatefrequency>60000</updatefrequency><!-- 更新频率 单位分钟 2 * 60 * 60 * 1000 -->
+		<detailpage id="rrtpro" reg=".+www.renrentou.com/project/detail/project_id.*">
+			<tablename>ccfa_common</tablename>
+			<storaged>true</storaged><!-- 是否存储 -->
+			<fields>
+				<field name="发起人">
+					<columnname>pro_name</columnname>
+					<element>dl.attention-dl>dd>b</element>
+				</field>
+				<field description="项目地点">
+					<columnname></columnname>
+					<element>p.attention-p>i</element>
+				</field>
+			</fields>
+		</detailpage>
+	</host>
+</crawlinfo>

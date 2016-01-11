@@ -1,0 +1,102 @@
+package cn.innohub.crawler.conf;
+
+import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.ConcurrentHashMap;
+
+import org.dom4j.Document;
+import org.dom4j.Element;
+import org.dom4j.Node;
+
+import cn.innohub.crawler.beans.ExtractField;
+import cn.innohub.crawler.beans.ExtractRule;
+import cn.innohub.crawler.utils.Dom4JUtil;
+
+public  class Configuration {
+
+//	public static void main(String[] args) {
+//		System.out.println(Configuration.getConf().getRule("www.innohub.net"));
+//	}
+	static{
+		ruleMap = new ConcurrentHashMap<>();
+		loadFieldsExtractRegXml();
+	}
+
+	
+	private static ConcurrentHashMap<String, ExtractRule> ruleMap ; // 抽取规则
+
+	/**
+	 * @Description: 读取xml fields-extract-reg 封装成对象，放入ruleMap中
+	 * @author zhangjie
+	 * @date 2016年1月4日 下午1:52:19
+	 */
+	public void addRule(String hostName, ExtractRule extractRule) {
+		ruleMap.put(hostName, extractRule);
+	}
+
+	public ExtractRule getRule(String hostName) {
+		return ruleMap.get(hostName);
+	}
+
+	protected void initConf() {
+		loadFieldsExtractRegXml();
+	}
+	private static void loadFieldsExtractRegXml() {
+		InputStream is = Configuration.class.getClassLoader().getResourceAsStream("fields-extract-reg.xml");
+
+		try {
+			Document doc = Dom4JUtil.getDocument(is);
+
+			/** 1、读取host节点 */
+			@SuppressWarnings("unchecked")
+			List<Element> ruleNodeList = doc.selectNodes("/extract-rules/rule");
+			for (Element rule : ruleNodeList) {
+				ExtractRule extractRule = new ExtractRule();
+				
+				Node hostname = rule.selectSingleNode("hostname");
+				Node clazz =  rule.selectSingleNode("clazz");
+				extractRule.setHostName(hostname.getText().trim());
+				extractRule.setClazz(clazz.getText().trim());
+				
+				@SuppressWarnings("unchecked")
+				List<Node> fields =  rule.selectNodes("field");
+				if(fields!=null&&fields.size()!=0){
+					List<ExtractField> extractFieldsNode = extractFieldsNode(fields);
+					extractRule.setFields(extractFieldsNode);
+				}
+				ruleMap.put(hostname.getText().trim(), extractRule);
+//				ruleMap(hostname.getText().trim(), extractRule);
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+	}
+	
+	/**
+	 * 
+	 * @Description: 抽取Field 
+	 * @author zhangjie
+	 * @date 2016年1月4日 下午5:11:29 
+	 *
+	 */
+	private static List<ExtractField> extractFieldsNode(List<Node> fields){
+		List<ExtractField> extractFieldList = new ArrayList<ExtractField>();
+		for(Node node : fields){
+			ExtractField extractField = new ExtractField();
+			Node name = node.selectSingleNode("name");
+			Node method = node.selectSingleNode("method");
+			Node reg = node.selectSingleNode("reg");
+			
+			extractField.setMethod(method.getText().trim());
+			extractField.setName(name.getText().trim());
+			extractField.setReg(reg.getText().trim());
+			
+			extractFieldList.add(extractField);
+		}
+		return extractFieldList;
+	}
+
+}

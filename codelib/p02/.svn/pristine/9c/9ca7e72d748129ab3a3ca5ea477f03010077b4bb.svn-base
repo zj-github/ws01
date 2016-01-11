@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- private String type; #private String url; #private int updateFrequency; 
+	#private Date lastModifyTime;// 最后更新时间 #private Date lastFetchTime;// 最后更新时间 
+	#private Date nextFetchTime;// 下次抓取时间 #private String detailPageUrlDigest;// 
+	上次抽取的列表页url的签名值 // （拼接所有url转换成一个String文本，使用md5获取签名） #private List<String> 
+	detailUrlList;// 上次抽取的详情页外链集合 #private List<ExtractRule> extractRule;// 抽取规则 
+	#private boolean shouldIndex;// 是否提交索引 #private boolean shouldStorage;// 
+	是否存储 #private int childDetailUrlNum;// 详情页数据限制 #private String listPageFetchTool;// 
+	使用的抓取工具插件 #private String detailUrlFetchTool;// 详情页使用的抓取插件 -->
+
+<first-level-seeds>
+	<seed>
+		<url>http://www.innohub.net/sciencemarket/article/index.html</url><!-- 
+			种子链接 -->
+		<updatefrequency>2</updatefrequency><!-- 更新频率 单位分钟 -->
+		<detailpagerule>^(http|https)://www.innohub.net/sciencemarket/article/detail.html\\?id=.*</detailpagerule><!-- 详情页特征 -->
+		<storaged>true</storaged><!-- 是否存储 -->
+	</seed>
+</first-level-seeds>
