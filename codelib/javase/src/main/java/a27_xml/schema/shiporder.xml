@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<itheima:shiporder xmlns:itheima="http://www.itheima.cn"
+<shiporder xmlns:itheima="http://www.itheima.cn"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://www.itheima.cn shiporder.xsd"
+	xsi:schemaLocation="http://www.innohub.cn shiporder.xsd"
 	orderid="aaa">
-	<itheima:orderperson1>pp</itheima:orderperson1>
-	<itheima:shipto>
-		<itheima:name>ppp</itheima:name>
-		<itheima:address>pppp</itheima:address>
-		<itheima:city>BJ</itheima:city>
-		<itheima:country>CN</itheima:country>
-	</itheima:shipto>
-	<itheima:item>
-		<itheima:title>tt</itheima:title>
-		<itheima:note>nn</itheima:note>
-		<itheima:quantity>100</itheima:quantity>
-		<itheima:price>10.00</itheima:price>
-	</itheima:item>
-</itheima:shiporder>
+	<orderperson1>pp</orderperson1>
+	<shipto>
+		<name>ppp</name>
+		<address>pppp</address>
+		<city>BJ</city>
+		<country>CN</country>
+	</shipto>
+	<item>
+		<title>tt</title>
+		<note>nn</note>
+		<quantity>100</quantity>
+		<price>10.00</price>
+	</item>
+</shiporder>

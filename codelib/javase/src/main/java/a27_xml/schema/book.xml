@@ -1,10 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<书架 xmlns="http://www.itcast.cn"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://www.itcast.cn book.xsd">
+<书架 xmlns="http://www.innohub.cn" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.innohub.cn book.xsd">
 	<书>
-		<书名>葵花宝典</书名>
-		<作者>董泽</作者>
+		<书名>d</书名>
+		<作者>a</作者>
+		<售价>10</售价>
+	</书>
+	<书>
+		<书名>d</书名>
+			<作者>a</作者>
 		<售价>10</售价>
 	</书>
 </书架>
