@@ -1,21 +1,21 @@
-package cn.innohub.web.demo.a08_jdbc;
+package cn.innohub.web.demo.a08_jdbc.paging;
 
 import java.util.List;
 
-//�������ҳ�йص���Ϣ�ķ�װ
+//所有与分页有关的信息的封装
 public class Page<T> {
-	private List<T> records;//��ҳ��¼
-	private int pageNum;//��¼��ǰҳ��
-	private int totalPage;//������ҳ
-	private int pageSize = 10;//ÿҳ��ʾ������
-	private int startIndex;//��ʼ��¼������
-	private int totalRecords;//�ܼ�¼��
+	private List<T> records;//分页记录
+	private int pageNum;//记录当前页码
+	private int totalPage;//共多少页
+	private int pageSize = 10;//每页显示的条数
+	private int startIndex;//开始记录的索引
+	private int totalRecords;//总记录数
 	
-	private int startPageNum;//��ʼҳ��
-	private int endPageNum;//����ҳ��
+	private int startPageNum;//开始页码
+	private int endPageNum;//结束页码
 	
 	
-	private String url;//��ѯ��ҳ��ݵ������ַ
+	private String url;//查询分页数据的请求地址
 	
 	
 	public String getUrl() {
@@ -29,17 +29,17 @@ public class Page<T> {
 	public Page(int pageNum,int totalRecords){
 		this.pageNum = pageNum;
 		this.totalRecords = totalRecords;
-		//������ҳ��
-		//�ܹ�����ҳ=������%ÿҳ��ʾ������==0?������/ÿҳ��ʾ������:������/ÿҳ��ʾ������+1;
+		//计算总页数
+		//总共多少页=总条数%每页显示的条数==0?总条数/每页显示的条数:总条数/每页显示的条数+1;
 		totalPage = totalRecords%pageSize==0?totalRecords/pageSize:totalRecords/pageSize+1;
-		//����ÿҳ��ʼ��¼������
-//		ÿҳ��ʼ��¼������=(��ǰҳ��-1)*ÿҳ��ʾ������
+		//计算每页开始记录的索引
+//		每页开始记录的索引=(当前页码-1)*每页显示的条数
 		startIndex = (pageNum-1)*pageSize;
 		
-		//���㿪ʼ�ͽ���ҳ��
+		//计算开始和结束页码
 		startPageNum = pageNum-4;
 		endPageNum = pageNum+4;
-		//�ж���ҳ���Ƿ�С��9
+		//判断总页数是否小于9
 		if(totalPage<9){
 			startPageNum = 1;
 			endPageNum = totalPage;

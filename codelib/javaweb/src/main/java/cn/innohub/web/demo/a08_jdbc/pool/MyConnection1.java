@@ -1,10 +1,8 @@
-package cn.iktz.javaweb.demo.jdbc.pool;
+package cn.innohub.web.demo.a08_jdbc.pool;
 
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.LinkedList;
-
-
 
 public class MyConnection1 extends ConnectionAdapter {
 	private Connection conn;

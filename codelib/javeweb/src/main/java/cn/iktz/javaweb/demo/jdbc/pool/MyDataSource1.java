@@ -1,5 +1,4 @@
 package cn.iktz.javaweb.demo.jdbc.pool;
-/*package cn.iktz.javawebdemo.jdbc.pool;
 
 import java.io.PrintWriter;
 import java.lang.reflect.InvocationHandler;
@@ -7,11 +6,14 @@ import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.sql.SQLFeatureNotSupportedException;
 import java.util.LinkedList;
+import java.util.logging.Logger;
 
 import javax.sql.DataSource;
 
-import com.itheima.util.JdbcUtil;
+import cn.iktz.javaweb.demo.jdbc.JdbcUtil;
+
 
 public class MyDataSource1 implements DataSource {
 	public static int initalPoolSize = 10;
@@ -89,6 +91,13 @@ public class MyDataSource1 implements DataSource {
 			throws SQLException {
 		return null;
 	}
+
+
+
+	@Override
+	public Logger getParentLogger() throws SQLFeatureNotSupportedException {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
 }
-*/

@@ -1,5 +1,4 @@
 package cn.iktz.javaweb.demo.jdbc.pool;
-/*package cn.iktz.javawebdemo.jdbc.pool;
 
 import java.sql.Array;
 import java.sql.Blob;
@@ -19,6 +18,7 @@ import java.sql.Struct;
 import java.util.LinkedList;
 import java.util.Map;
 import java.util.Properties;
+import java.util.concurrent.Executor;
 //针对数据库驱动中的Connection实现进行包装
 public class MyConnection implements Connection {
 	private Connection conn;//记住被包装类的对象的引用
@@ -337,5 +337,34 @@ public class MyConnection implements Connection {
 		return null;
 	}
 
+	@Override
+	public void setSchema(String schema) throws SQLException {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public String getSchema() throws SQLException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void abort(Executor executor) throws SQLException {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void setNetworkTimeout(Executor executor, int milliseconds) throws SQLException {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public int getNetworkTimeout() throws SQLException {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
 }
-*/

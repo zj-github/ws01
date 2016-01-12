@@ -1,15 +1,15 @@
-package cn.iktz.javaweb.demo.jdbc.pool;
+package cn.innohub.web.demo.a08_jdbc.pool;
 
 import java.sql.Connection;
 import java.util.LinkedList;
 
-import cn.iktz.javaweb.demo.jdbc.JdbcUtil;
-//Ä£ÄâÁ¬½Ó³ØÔ­Àí£ºÌáÉı»ñÈ¡Êı¾İ¿âÁ´½ÓµÄĞ§ÂÊ
-//°ÑÁ´½Ó·Åµ½Ò»¸ö»º´æÖĞ£¬ÓÃÍêÁ´½ÓºóÒ»¶¨Òª»¹»Ø³ØÖĞ
+import cn.innohub.web.demo.a08_jdbc.common.JdbcUtil;
+//æ¨¡æ‹Ÿè¿æ¥æ± åŸç†ï¼šæå‡è·å–æ•°æ®åº“é“¾æ¥çš„æ•ˆç‡
+//æŠŠé“¾æ¥æ”¾åˆ°ä¸€ä¸ªç¼“å­˜ä¸­ï¼Œç”¨å®Œé“¾æ¥åä¸€å®šè¦è¿˜å›æ± ä¸­
 public class SimpleConnectionPool {
 	private static LinkedList<Connection> pool = new LinkedList<Connection>();
 	static{
-		//³õÊ¼»¯10¸öÁ´½Ó
+		//åˆå§‹åŒ–10ä¸ªé“¾æ¥
 		for(int i=0;i<10;i++){
 			Connection conn;
 			try {
@@ -25,7 +25,7 @@ public class SimpleConnectionPool {
 			Connection conn = pool.removeFirst();
 			return conn;
 		}else{
-			throw new RuntimeException("·şÎñÆ÷Ã¦");
+			throw new RuntimeException("æœåŠ¡å™¨å¿™");
 		}
 	}
 	public static void release(Connection conn){

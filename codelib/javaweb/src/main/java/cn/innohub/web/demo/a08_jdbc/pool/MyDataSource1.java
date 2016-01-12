@@ -1,6 +1,9 @@
-package cn.iktz.javaweb.demo.jdbc.pool;
+package cn.innohub.web.demo.a08_jdbc.pool;
 
 import java.io.PrintWriter;
+import java.lang.reflect.InvocationHandler;
+import java.lang.reflect.Method;
+import java.lang.reflect.Proxy;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.SQLFeatureNotSupportedException;
@@ -9,13 +12,14 @@ import java.util.logging.Logger;
 
 import javax.sql.DataSource;
 
-import cn.iktz.javaweb.demo.jdbc.JdbcUtil;
+import cn.innohub.web.demo.a08_jdbc.common.JdbcUtil;
 
-public class MyDataSource implements DataSource {
+
+public class MyDataSource1 implements DataSource {
 	public static int initalPoolSize = 10;
 	private static LinkedList<Connection> pool = new LinkedList<Connection>();
 	static{
-		//³õÊ¼»¯10¸öÁ´½Ó
+		//åˆå§‹åŒ–10ä¸ªé“¾æ¥
 		for(int i=0;i<initalPoolSize;i++){
 			Connection conn;
 			try {
@@ -30,11 +34,22 @@ public class MyDataSource implements DataSource {
 
 	public synchronized Connection getConnection() throws SQLException {
 		if(pool.size()>0){
-			Connection conn = pool.removeFirst();
-			MyConnection1 mconn = new MyConnection1(conn, pool);
-			return mconn;
+			final Connection conn = pool.removeFirst();
+			Connection proxyConn = (Connection)Proxy.newProxyInstance(conn.getClass().getClassLoader(), conn.getClass().getInterfaces(), 
+					new InvocationHandler() {
+						public Object invoke(Object proxy, Method method, Object[] args)
+								throws Throwable {
+							if("close".equals(method.getName())){
+								pool.add(conn);
+							}else{
+								return method.invoke(conn, args);
+							}
+							return null;
+						}
+					});
+			return proxyConn;
 		}else{
-			throw new RuntimeException("·şÎñÆ÷Ã¦");
+			throw new RuntimeException("æœåŠ¡å™¨å¿™");
 		}
 	}
 

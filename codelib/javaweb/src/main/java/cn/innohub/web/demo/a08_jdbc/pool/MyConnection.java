@@ -1,4 +1,4 @@
-package cn.iktz.javaweb.demo.jdbc.pool;
+package cn.innohub.web.demo.a08_jdbc.pool;
 
 import java.sql.Array;
 import java.sql.Blob;
@@ -15,15 +15,24 @@ import java.sql.SQLXML;
 import java.sql.Savepoint;
 import java.sql.Statement;
 import java.sql.Struct;
+import java.util.LinkedList;
 import java.util.Map;
 import java.util.Properties;
 import java.util.concurrent.Executor;
-//ÊÊÅäÆ÷£ºÒ²ÊÇÒ»¸ö°ü×°Àà£¬µ«Ê²Ã´¶¼²»±ä
-public class ConnectionAdapter implements Connection {
-	private Connection conn;
-	public ConnectionAdapter(Connection conn){
+//é’ˆå¯¹æ•°æ®åº“é©±åŠ¨ä¸­çš„Connectionå®ç°è¿›è¡ŒåŒ…è£…
+public class MyConnection implements Connection {
+	private Connection conn;//è®°ä½è¢«åŒ…è£…ç±»çš„å¯¹è±¡çš„å¼•ç”¨
+	private LinkedList<Connection> pool;
+	public MyConnection(Connection conn, LinkedList<Connection> pool){
 		this.conn = conn;
+		this.pool = pool;
 	}
+	
+	//æŠŠé“¾æ¥è¿˜å›æ± ä¸­
+	public void close() throws SQLException {
+		pool.add(conn);
+	}
+	
 	@Override
 	public <T> T unwrap(Class<T> iface) throws SQLException {
 		return conn.unwrap(iface);
@@ -31,7 +40,7 @@ public class ConnectionAdapter implements Connection {
 
 	@Override
 	public boolean isWrapperFor(Class<?> iface) throws SQLException {
-		return false;
+		return conn.isWrapperFor(iface);
 	}
 
 	@Override
@@ -82,11 +91,7 @@ public class ConnectionAdapter implements Connection {
 
 	}
 
-	@Override
-	public void close() throws SQLException {
-		// TODO Auto-generated method stub
-
-	}
+	
 
 	@Override
 	public boolean isClosed() throws SQLException {
@@ -331,26 +336,31 @@ public class ConnectionAdapter implements Connection {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
 	@Override
 	public void setSchema(String schema) throws SQLException {
 		// TODO Auto-generated method stub
 		
 	}
+
 	@Override
 	public String getSchema() throws SQLException {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
 	@Override
 	public void abort(Executor executor) throws SQLException {
 		// TODO Auto-generated method stub
 		
 	}
+
 	@Override
 	public void setNetworkTimeout(Executor executor, int milliseconds) throws SQLException {
 		// TODO Auto-generated method stub
 		
 	}
+
 	@Override
 	public int getNetworkTimeout() throws SQLException {
 		// TODO Auto-generated method stub
