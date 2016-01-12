@@ -4,4 +4,14 @@
 
 <web-app>
   <display-name>Archetype Created Web Application</display-name>
+  <filter>
+  	<filter-name>DispatcherFilter</filter-name>
+  	<display-name>DispatcherFilter</display-name>
+  	<description></description>
+  	<filter-class>cn.innohub.web.project.a05_mvcframe.DispatcherFilter</filter-class>
+  </filter>
+  <filter-mapping>
+  	<filter-name>DispatcherFilter</filter-name>
+  	<url-pattern>/DispatcherFilter</url-pattern>
+  </filter-mapping>
 </web-app>

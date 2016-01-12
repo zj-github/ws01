@@ -1,4 +1,4 @@
-package cn.innohub.web.project.dbassist;
+package cn.innohub.web.project.a00_dbassist;
 
 import java.sql.Connection;
 import java.sql.ParameterMetaData;

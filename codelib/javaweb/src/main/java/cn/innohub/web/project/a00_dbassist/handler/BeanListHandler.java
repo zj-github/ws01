@@ -1,4 +1,4 @@
-package cn.innohub.web.project.dbassist.handler;
+package cn.innohub.web.project.a00_dbassist.handler;
 
 import java.lang.reflect.Field;
 import java.sql.ResultSet;
@@ -6,8 +6,8 @@ import java.sql.ResultSetMetaData;
 import java.util.ArrayList;
 import java.util.List;
 
-import cn.innohub.web.project.dbassist.DBAssistException;
-import cn.innohub.web.project.dbassist.ResultSetHandler;
+import cn.innohub.web.project.a00_dbassist.DBAssistException;
+import cn.innohub.web.project.a00_dbassist.ResultSetHandler;
 
 public class BeanListHandler<T> implements ResultSetHandler<List<T>> {
 	private Class<T> clazz;

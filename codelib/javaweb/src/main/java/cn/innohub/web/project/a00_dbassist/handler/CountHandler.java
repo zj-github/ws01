@@ -1,9 +1,9 @@
-package cn.innohub.web.project.dbassist.handler;
+package cn.innohub.web.project.a00_dbassist.handler;
 
 import java.sql.ResultSet;
 
-import cn.innohub.web.project.dbassist.DBAssistException;
-import cn.innohub.web.project.dbassist.ResultSetHandler;
+import cn.innohub.web.project.a00_dbassist.DBAssistException;
+import cn.innohub.web.project.a00_dbassist.ResultSetHandler;
 
 
 public class CountHandler implements ResultSetHandler<Integer> {
