@@ -1,7 +1,10 @@
 package crawler.httpunit;
+import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.net.MalformedURLException;
 
+import org.apache.commons.io.IOUtils;
 import org.junit.Test;
 import org.xml.sax.SAXException;
 
@@ -30,11 +33,11 @@ public class httpUnitTestSample {
 		System.out.println("直接获取网页内容：");
 		// 建立一个WebConversation实例
 		WebConversation wc = new WebConversation();
-		HttpUnitOptions.setScriptingEnabled(false);
+		HttpUnitOptions.setScriptingEnabled(true);
 		// 向指定的URL发出请求，获取响应
-		WebResponse wr = wc.getResponse("http://www.baidu.com");
+		WebResponse wr = wc.getResponse("http://news.sina.com.cn/c/2016-01-12/doc-ifxnkkuv4419839.shtml");
 		// 用getText方法获取相应的全部内容
-		// 用System.out.println将获取的内容打印在控制台上
+		IOUtils.write(wr.getText(), new FileWriter(new File("E:\\T2.HTML")));
 		System.out.println(wr.getText());
 	}
 
