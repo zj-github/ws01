@@ -17,5 +17,15 @@
 	<classpathentry kind="lib" path="lib/a28/commons-logging-1.1.jar"/>
 	<classpathentry kind="lib" path="lib/a27/dom4j-1.6.1.jar"/>
 	<classpathentry kind="lib" path="lib/a27/jaxen-1.1-beta-6.jar"/>
+	<classpathentry kind="lib" path="lib/httpunit/activation-1.1.jar"/>
+	<classpathentry kind="lib" path="lib/httpunit/httpunit.jar"/>
+	<classpathentry kind="lib" path="lib/httpunit/js-1.6R5.jar"/>
+	<classpathentry kind="lib" path="lib/httpunit/jtidy-4aug2000r7-dev.jar"/>
+	<classpathentry kind="lib" path="lib/httpunit/junit-3.8.1.jar"/>
+	<classpathentry kind="lib" path="lib/httpunit/mail-1.4.jar"/>
+	<classpathentry kind="lib" path="lib/httpunit/nekohtml-0.9.5.jar"/>
+	<classpathentry kind="lib" path="lib/httpunit/servlet-api-2.4.jar"/>
+	<classpathentry kind="lib" path="lib/httpunit/xercesImpl-2.6.1.jar"/>
+	<classpathentry kind="lib" path="lib/httpunit/xmlParserAPIs-2.6.1.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>
