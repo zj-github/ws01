@@ -3,10 +3,8 @@ package c00.d_20160112_packagescaner;
 import java.io.File;
 import java.net.URL;
 import java.net.URLClassLoader;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Enumeration;
-import java.util.List;
 import java.util.TreeSet;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.jar.JarEntry;
@@ -31,6 +29,7 @@ public class PackageScaner {
 	private Logger logger = Logger.getLogger(PackageScaner.class);
 
 	private final String JAR_SUFFIX = ".jar";
+	private final String CLASS_SUFFIX = ".jar";
 
 	public static void main(String[] args) {
 		// 1、获取当前线程的ClassLoader
@@ -112,24 +111,18 @@ public class PackageScaner {
 	}
 
 	public void getSpePackage(TreeSet<JarFile> jarFileList) {
-		for (JarFile jarFile : jarFileList) {
-			Enumeration<JarEntry> entries = jarFile.entries();
-			while (entries.hasMoreElements()) {
-				JarEntry jarEntry = entries.nextElement();
-				// jarEntry.getName()
-			}
-		}
 	}
 
-	public void getClassesFromJarFile(JarFile jarFile) {
+	public void getClassesFromJarFile(JarFile jarFile, String packageName,TreeSet<String> classList) {
 		Enumeration<JarEntry> entries = jarFile.entries();
 		while (entries.hasMoreElements()) {
 			JarEntry jarEntry = entries.nextElement();
-			jarEntry.getName();
-			jarEntry.isDirectory();
-			jarEntry.getSize();
-//			jarEntry.getAttributes();
-//			jarEntry.get
+			String name = jarEntry.getName();
+			packageName = packageName.replace(".", File.pathSeparator);
+			if (!jarEntry.isDirectory() && name.startsWith(packageName) && name.endsWith(CLASS_SUFFIX)
+					&& name.indexOf("$") == -1) {
+				classList.add(name);
+			}
 		}
 	}
 }
