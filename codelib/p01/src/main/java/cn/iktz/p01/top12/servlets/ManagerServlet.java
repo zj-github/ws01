@@ -1,4 +1,4 @@
-package cn.iktz.servlets;
+package cn.iktz.p01.top12.servlets;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -6,7 +6,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import cn.iktz.p01.service.URLService;
+import cn.iktz.p01.top12.service.URLService;
 import cn.iktz.utils.URLUtil;
 public class ManagerServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;

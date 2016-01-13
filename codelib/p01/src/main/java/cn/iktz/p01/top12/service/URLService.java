@@ -1,4 +1,4 @@
-package cn.iktz.p01.service;
+package cn.iktz.p01.top12.service;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -9,7 +9,7 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.junit.Test;
 
-import cn.iktz.p01.beans.Constant;
+import cn.iktz.p01.top12.beans.Constant;
 import cn.iktz.utils.ImgUtil;
 import cn.iktz.utils.JedisPoolUtil;
 import cn.iktz.utils.MD5Util;

@@ -6,7 +6,6 @@ import java.net.URL;
 import java.net.URLClassLoader;
 import java.util.Enumeration;
 import java.util.TreeSet;
-import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
 
@@ -48,7 +47,6 @@ public class PackageScaner {
 			System.out.println(" >> jar file " + string);
 		}
 		// 4、遍历jar包中的路径，取得指定的包名下的class文件
-
 		System.out.println(" package name is " + packageName);
 		TreeSet<String> classes = pscaner.getSpePackageClass(jarFile, packageName);
 		return classes;

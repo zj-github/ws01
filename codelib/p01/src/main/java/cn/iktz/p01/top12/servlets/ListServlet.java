@@ -1,4 +1,4 @@
-package cn.iktz.servlets;
+package cn.iktz.p01.top12.servlets;
 
 import java.io.IOException;
 import java.util.List;
@@ -8,8 +8,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import cn.iktz.p01.beans.ART;
-import cn.iktz.p01.service.ARTService;
+import cn.iktz.p01.top12.beans.ART;
+import cn.iktz.p01.top12.service.ARTService;
 public class ListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        

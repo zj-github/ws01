@@ -1,4 +1,4 @@
-package cn.iktz.p01.filter;
+package cn.iktz.p01.top12.filter;
 
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
@@ -15,7 +15,7 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import cn.iktz.p01.beans.Constant;
+import cn.iktz.p01.top12.beans.Constant;
 import cn.iktz.utils.Base64Util;
 import cn.iktz.utils.JedisPoolUtil;
 

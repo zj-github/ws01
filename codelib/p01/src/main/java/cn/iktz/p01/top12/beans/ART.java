@@ -1,4 +1,4 @@
-package cn.iktz.p01.beans;
+package cn.iktz.p01.top12.beans;
 
 public class ART {
 

@@ -1,4 +1,4 @@
-package cn.iktz.p01.filter;
+package cn.iktz.p01.top12.filter;
 
 import java.io.IOException;
 import javax.servlet.Filter;
@@ -9,8 +9,8 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 
-import cn.iktz.p01.beans.ART;
-import cn.iktz.p01.service.ARTService;
+import cn.iktz.p01.top12.beans.ART;
+import cn.iktz.p01.top12.service.ARTService;
 
 /**
  * Servlet Filter implementation class URLFilter
