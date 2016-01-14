@@ -10,11 +10,15 @@ import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 
 public class Snippet {
+	public static void main(String[] args) {
+		Snippet s = new Snippet();
+		s.XmlToObj();
+	}
 	public void XmlToObj() {
 
 		try {
 
-			File file = new File("C:\\TestJaxb.xml");
+			File file = new File("E:\\githome\\ws01\\codelib\\java\\src\\main\\java\\c03_xml\\jaxb\\NewFile.xml");
 			JAXBContext jaxbContext = JAXBContext.newInstance(Student.class);
 
 			Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();

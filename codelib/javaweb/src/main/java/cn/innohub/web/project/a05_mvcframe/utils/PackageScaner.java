@@ -23,11 +23,11 @@ import org.apache.log4j.Logger;
  * 1、工具类 JarFile 2、classpath的概念 3、ClassLoader获取ClassPath
  */
 public class PackageScaner {
-	
+
 	public static void main(String[] args) throws Exception {
 		new PackageScaner().scan("cn.innohub.web.project.a05_mvcframe.utils");
-		
 	}
+
 	private Logger logger = Logger.getLogger(PackageScaner.class);
 
 	public TreeSet<String> scan(String packageName) throws Exception {
@@ -38,21 +38,15 @@ public class PackageScaner {
 		// 2、通过ClassLoader获取classpath
 		URL[] classPathes = pscaner.getClassPath(urlClassLoader);
 		for (URL url : classPathes) {
-			File file = new File(url.toURI());
-			if(file.isDirectory()){
-				
-			}
-			System.out.println(" class path >> "+url.toURI());
+			System.out.println(" class path >> " + url.toURI());
 		}
-		
-		// 3、遍历ClassPath获取jar包
-		TreeSet<String> jarFile = pscaner.getJarFile(classPathes);
-		for (String string : jarFile) {
-			System.out.println(" >> jar file " + string);
+		// 3、若ClassPath是目录，遍历获取jar
+		// 若是jar，遍历jar包中的路径，取得指定的包名下的class文件
+		TreeSet<String> classes = pscaner.getClassesInSpePackage(classPathes,packageName);
+		for (String string : classes) {
+			System.out.println(" >>  " + string);
 		}
-		// 4、遍历jar包中的路径，取得指定的包名下的class文件
-		System.out.println(" package name is " + packageName);
-		TreeSet<String> classes = pscaner.getSpePackageClass(jarFile, packageName);
+	
 		return classes;
 	}
 
@@ -68,73 +62,24 @@ public class PackageScaner {
 		return urLs;
 	}
 
-	private TreeSet<String> getJarFile(URL[] urls) throws Exception {
-		TreeSet<String> jarFiles = new TreeSet<>();
+	private TreeSet<String> getClassesInSpePackage(URL[] urls,String packageName) throws Exception {
+		String packageDirPath = packageName.replace(".", File.separator);
+		TreeSet<String> classNameSet = new TreeSet<>(); 
 		for (URL url : urls) {
-			jarFiles.addAll(getJarFilesFromDir(url.getPath()));
-		}
-		return jarFiles;
-	}
-
-	/**
-	 * 
-	 * @Description: 获取文件夹下的jarFile
-	 * @author zhangjie
-	 * @date 2016年1月13日 上午9:35:17
-	 * @param dirPath
-	 * @throws Exception
-	 *
-	 */
-	private void getJarFilesFromDir(File file, TreeSet<String> jarFileList) {
-		try {
-			logger.debug(" scan dir path " + file.getAbsolutePath());
-			if (file.isDirectory()) {
-				File[] list = file.listFiles();
-				for (File f : list) {
-					String absolutePath = f.getAbsolutePath();
-					System.out.println("    * list path >> " + absolutePath);
-					logger.debug("    * list path >> " + absolutePath);
-					getJarFilesFromDir(new File(absolutePath), jarFileList);
+			File classPath = new File(url.getPath());
+			if(classPath.isDirectory()&&classPath.exists()){
+				File packageDir = new File(classPath,packageDirPath);
+				if(packageDir.isDirectory()&&classPath.exists()){
+					getClassesFromPackageDir(packageDir, classPath, classNameSet);
 				}
-			} else {
-				if (file.getName().indexOf(JAR_SUFFIX) != -1) {
-					logger.debug(" scan dir path " + file.getAbsolutePath());
-					if (jarFileList.add(file.getAbsolutePath())) {
-						logger.debug("add jar file " + file.toPath());
-					}
-				}
+			}else if(classPath.getName().endsWith(JAR_SUFFIX)){
+				getClassesFromJarFile(url.getPath(),packageDirPath,classNameSet);
 			}
-		} catch (Exception e) {
-			e.printStackTrace();
 		}
+		return classNameSet;
 	}
 
-	/**
-	 * 
-	 * @Description: 获取指定目录下的所有的class
-	 * @author zhangjie
-	 * @date 2016年1月13日 下午2:48:22
-	 * @param dir
-	 * @param packageName
-	 * @return
-	 *
-	 */
-	private TreeSet<String> getJarFilesFromDir(String dir) {
-		TreeSet<String> jarFileList = new TreeSet<>();
-		getJarFilesFromDir(new File(dir), jarFileList);
-		return jarFileList;
-	}
-
-	private TreeSet<String> getSpePackageClass(TreeSet<String> jarFileList, String packageName) {
-		TreeSet<String> classList = new TreeSet<>();
-		for (String jarFilePath : jarFileList) {
-
-			getClassesFromJarFile(jarFilePath, packageName, classList);
-		}
-		return classList;
-	}
-
-	private void getClassesFromJarFile(String jarFilePath, String packageName, TreeSet<String> classList) {
+	private void getClassesFromJarFile(String jarFilePath, String packageDir, TreeSet<String> classList) {
 		JarFile jarFile = null;
 		try {
 			jarFile = new JarFile(jarFilePath);
@@ -143,8 +88,7 @@ public class PackageScaner {
 			while (entries.hasMoreElements()) {
 				JarEntry jarEntry = entries.nextElement();
 				String name = jarEntry.getName();
-				packageName = packageName.replace(".", "/");
-				if (!jarEntry.isDirectory() && name.startsWith(packageName) && name.endsWith(CLASS_SUFFIX)
+				if (!jarEntry.isDirectory() && name.startsWith(packageDir) && name.endsWith(CLASS_SUFFIX)
 						&& name.indexOf("$") == -1) {
 					classList.add(name.replace("/", ".").replace(".class", ""));
 					logger.info("-- " + name);
@@ -162,4 +106,15 @@ public class PackageScaner {
 			}
 		}
 	}
+
+	private void getClassesFromPackageDir(File f,  File classPath, TreeSet<String> classNameSet) {
+		if (f.isDirectory()) {
+			for (File f2 : f.listFiles()) {
+				getClassesFromPackageDir(f2, classPath,classNameSet);
+			}
+		}else{
+			classNameSet.add(f.getAbsolutePath().substring(classPath.getAbsolutePath().length()+1).replace(File.separator,"." ).replace(CLASS_SUFFIX, ""));
+		}
+	}
+	
 }

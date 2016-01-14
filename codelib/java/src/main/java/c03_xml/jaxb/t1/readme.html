@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Jaxb xml到对象的转换</title>
+</head>
+<body>
+1、根节点
+Jaxb相关的注解
+@XmlRootElement
+@XmlRootElement指定name属性控制根节点名：@XmlRootElement(name="ClassA")
+
+
+使用@XmlRootElement(namespace="cn.lzrabbit") 指定namespace命名空间属性
+2、元素节点
+ @XmlElement(name="ClassAName")
+
+3、getter和setter方法
+a、JAXB序列化XML时  默认序列化getter和setter，且getter和setter必须成对出现才会被序列化
+b、属性名称，默认序列化出来的类和属性名称默认是首字母转换为小写，若需要控制属性名称需要在getter或setter上使用@XmlElement(name="ClassAId") 指定名称，
+c、要注意的是@XmlElement放置在getter或setter上都行， 但只能放一个，也就是说不能同时在getter和setter上使用@XmlElement注解
+
+4、@XmlAccessorType(XmlAccessType.FIELD)：可以实现序列化时使用Field字段而不是使用setter和getter
+在要使用的类上面加上@XmlAccessorType(XmlAccessType.FIELD)注解，并指定为XmlAccessType.FIELD，
+因为这样你可以精确的控制每个元素的名称，而不需要为每个属性去设置@XmlElement(name="")注解，当然也可以同时在Field上使用@XmlElement注解。
+
+
+
+
+</body>
+</html>
