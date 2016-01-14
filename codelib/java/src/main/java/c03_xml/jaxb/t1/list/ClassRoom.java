@@ -2,6 +2,9 @@ package c03_xml.jaxb.t1.list;
 
 import java.util.List;
 
+import javax.xml.bind.annotation.XmlRootElement;
+
+@XmlRootElement
 public class ClassRoom{
 
 	private List<Desk> desks;

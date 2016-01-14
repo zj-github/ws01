@@ -2,12 +2,15 @@ package c03_xml.jaxb.t1.list;
 
 public class Desk {
 	
-	public Desk() {
-		// TODO Auto-generated constructor stub
+	public Desk(int deskId,String studentName) {
+		this.deskId = deskId;
+		this.studentName = studentName;
+	}
+	public Desk( ) {
 	}
 	
 	private int deskId;
-	private int studentName;
+	private String studentName;
 
 	public int getDeskId() {
 		return deskId;
@@ -17,11 +20,11 @@ public class Desk {
 		this.deskId = deskId;
 	}
 
-	public int getStudentName() {
+	public String getStudentName() {
 		return studentName;
 	}
 
-	public void setStudentName(int studentName) {
+	public void setStudentName(String studentName) {
 		this.studentName = studentName;
 	}
 

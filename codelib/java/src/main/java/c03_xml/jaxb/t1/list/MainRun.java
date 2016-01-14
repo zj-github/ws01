@@ -1,25 +1,39 @@
 package c03_xml.jaxb.t1.list;
 
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
 import c03_xml.jaxb.t1.XmlUtil;
-import c03_xml.jaxb.t1.map.MapFieldInClass;
 
 public class MainRun {
 
 	public static void main(String[] args) {
 
-		ClassRoom classc = new ClassRoom();
+		ClassRoom classRoom = new ClassRoom();
 		
 		List<Desk> desks = new ArrayList<>();
 		
-		desks.add(new Desk());
+		desks.add(new Desk(16789,"zhangsan"));
+		desks.add(new Desk(2898,"lisi"));
 		
-		URL resource = MainRun.class.getClassLoader().getResource("c03_xml/jaxb/t1/map/m.xml");
-		MapFieldInClass fromXML = XmlUtil.fromXML(resource.getPath(), MapFieldInClass.class);
-		System.out.println(fromXML);
+		classRoom.setDesks(desks);
+		
+		XmlUtil.toXML(classRoom);
+		
+//		String resource = MainRun.class.getClassLoader().getResource("c03_xml/jaxb/t1/map/m.xml").getPath();
+//		MapFieldInClass fromXML = XmlUtil.fromXML(resource, MapFieldInClass.class);
+		System.out.println(XmlUtil.toXML(classRoom));
+//		<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+//		<classRoom>
+//		    <desks>
+//		        <deskId>16789</deskId>
+//		        <studentName>zhangsan</studentName>
+//		    </desks>
+//		    <desks>
+//		        <deskId>2898</deskId>
+//		        <studentName>lisi</studentName>
+//		    </desks>
+//		</classRoom>
 	}
 
 }

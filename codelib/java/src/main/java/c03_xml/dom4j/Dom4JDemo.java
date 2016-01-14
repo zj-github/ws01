@@ -15,6 +15,7 @@ public class Dom4JDemo {
 		Document document = Dom4JUtil.getDocument();
 		//得到根元素
 		Element root = document.getRootElement();
+		@SuppressWarnings("unchecked")
 		List<Element> es = root.elements("书");
 		Element secondBook = es.get(1);
 		Element authorE = secondBook.element("作者");
@@ -53,6 +54,7 @@ public class Dom4JDemo {
 		Document document = Dom4JUtil.getDocument();
 		//得到根元素
 		Element root = document.getRootElement();
+		@SuppressWarnings("unchecked")
 		List<Element> es = root.elements("书");
 		Element secondBook = es.get(1);
 		secondBook.element("售价").setText("0.20");
@@ -76,6 +78,7 @@ public class Dom4JDemo {
 		Element root = document.getRootElement();
 		Element firstBook = root.element("书");
 		
+		@SuppressWarnings("unchecked")
 		List<Element> es = firstBook.elements();
 		
 		Element price = DocumentHelper.createElement("批发价").addText("20.00");
