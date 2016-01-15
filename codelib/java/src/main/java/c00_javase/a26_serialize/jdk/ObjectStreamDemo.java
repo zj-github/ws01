@@ -19,6 +19,8 @@ public class ObjectStreamDemo {
 		Person p = (Person)ois.readObject();
 		System.out.println(p.toString());
 		
+		
+		
 		ois.close();
 	}
 }

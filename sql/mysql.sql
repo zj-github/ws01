@@ -7,3 +7,7 @@ create table user(
  age integer  
 );  
 alter table user modify id integer auto_increment ;  
+
+-- 
+GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' IDENTIFIED BY 'root' WITH GRANT OPTION; 
+flush privileges
