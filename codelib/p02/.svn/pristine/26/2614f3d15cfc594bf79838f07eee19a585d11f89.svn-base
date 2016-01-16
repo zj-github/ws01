@@ -1,7 +1,0 @@
-package cn.innohub.crawler.utils;
-
-public class Path {
-	public static String getClassPath() {
-		return Path.class.getClassLoader().getResource("").getPath();
-	}
-}

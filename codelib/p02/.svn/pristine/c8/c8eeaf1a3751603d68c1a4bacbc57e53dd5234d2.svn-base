@@ -1,9 +1,0 @@
-package cn.innohub.crawler.crawl.parse;
-
-import cn.innohub.crawler.beans.BeanDatum;
-
-public interface Parser {
-
-	BeanDatum parse();
-
-}
