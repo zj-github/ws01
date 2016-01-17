@@ -21,7 +21,7 @@ public class HttpClientTest {
 		RequestConfig requestConfig = RequestConfig.custom().setSocketTimeout(2000).setConnectTimeout(2000).build();//设置请求和传输超时时�?
 		
 		try {
-			HttpGet httpGet = new HttpGet("http://www.innohub.net/sciencemarket/article/detail.html?id=1298");
+			HttpGet httpGet = new HttpGet("http://blog.csdn.net/frankwangzy1103/article/details/7002373");
 			httpGet.setConfig(requestConfig);
 			CloseableHttpResponse response = httpClient.execute(httpGet);
 			

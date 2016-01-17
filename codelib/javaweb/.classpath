@@ -20,5 +20,11 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/javaassist"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="src/main/resources/dbassist/c3p0-0.9.1.2.jar"/>
+	<classpathentry kind="lib" path="src/main/resources/dbassist/c3p0-0.9.1.2-jdk1.3.jar"/>
+	<classpathentry kind="lib" path="src/main/resources/dbassist/c3p0-oracle-thin-extras-0.9.1.2.jar"/>
+	<classpathentry kind="lib" path="src/main/resources/dbassist/commons-dbcp-1.4.jar"/>
+	<classpathentry kind="lib" path="src/main/resources/dbassist/commons-pool-1.5.6.jar"/>
+	<classpathentry kind="lib" path="src/main/resources/dbassist/mysql-connector-java-5.0.8-bin.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>
