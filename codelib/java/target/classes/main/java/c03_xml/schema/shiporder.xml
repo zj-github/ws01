@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<shiporder xmlns:itheima="http://www.itheima.cn"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.innohub.cn shiporder.xsd"
+	orderid="aaa">
+	<orderperson1>pp</orderperson1>
+	<shipto>
+		<name>ppp</name>
+		<address>pppp</address>
+		<city>BJ</city>
+		<country>CN</country>
+	</shipto>
+	<item>
+		<title>tt</title>
+		<note>nn</note>
+		<quantity>100</quantity>
+		<price>10.00</price>
+	</item>
+</shiporder>

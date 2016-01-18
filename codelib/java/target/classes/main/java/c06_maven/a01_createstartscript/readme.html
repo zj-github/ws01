@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<pre>
+1、在pom中指定
+	conf路径
+	lib路径
+	main方法所在的类
+	输出路径
+	<textarea>
+	<build>  
+		<plugins>  
+			<plugin>   
+					<groupId>org.codehaus.mojo</groupId>   
+					<artifactId>appassembler-maven-plugin</artifactId>   
+					<version>1.1.1</version>  
+					<executions>  
+					<execution>  
+						<id>make-assembly</id>  
+						<phase>package</phase>  
+						<goals>  
+							<goal>assemble</goal>  
+						</goals>  
+					</execution>  
+				</executions>  
+					<configuration>   
+						<configurationDirectory>conf</configurationDirectory>  
+						<configurationSourceDirectory>src/main/config</configurationSourceDirectory>  
+						<copyConfigurationDirectory>true</copyConfigurationDirectory>  
+						<includeConfigurationDirectoryInClasspath>true</includeConfigurationDirectoryInClasspath>  
+						
+						<repositoryLayout>flat</repositoryLayout><!--库文件输出 flat：完全 -->
+						<repositoryName>lib</repositoryName>  <!-- 库文件位置 -->
+						
+						<binFileExtensions>  
+							<unix>.sh</unix>  
+						</binFileExtensions>  
+						
+						<assembleDirectory>e:\1.0.0-RELEASE</assembleDirectory>  
+					   <programs>   
+						 <program>   
+						  <mainClass>org.test.ClassUtils</mainClass>   
+						  <name>start</name>   
+						 </program>   
+					   </programs>   
+					 </configuration>   
+			</plugin>     
+		</plugins>  
+		<finalName>hello</finalName>
+	 </build>  
+	</textarea>
+2、使用命令
+	mvn package appassembler:assemble
+	
+	
+3、要点
+	a、重新编译，一定要清空target目录
+	b、使用到的目录需要存在
+	
+	
+</pre>
+</body>
+</html>
