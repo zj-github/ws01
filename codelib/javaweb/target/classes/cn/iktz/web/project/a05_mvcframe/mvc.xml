@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<context>
+	<component-scan>cn.iktz.web.project.a05_mvcframe</component-scan>
+</context>

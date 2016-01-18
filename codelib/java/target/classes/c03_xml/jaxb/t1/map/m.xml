@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Root1>
+    <m>
+        <entry>
+            <key>k1</key>
+            <value>v1</value>
+        </entry>
+        <entry>
+            <key>k2</key>
+            <value>v2</value>
+        </entry>
+    </m>
+</Root1>

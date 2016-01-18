@@ -1,0 +1,1954 @@
+﻿
+<!doctype html>
+<html>
+<head>
+
+	<meta charset="utf-8" />
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+	<link rel="shortcut icon" href='/images/couchbase_favicon_0.ico' type="image/x-icon" />
+	<link rel="icon" href='/images/couchbase_favicon_0.ico' type="image/vnd.microsoft.icon" />
+
+<!--    _____________________________
+_______/ Support for legacy browsers \_______________________________________-->
+
+	<!--[if lte IE 8]>
+	<script
+		type="text/javascript" charset="utf-8"
+		src="/js/polyfills/html5shiv.js" />
+	<script
+		type="text/javascript" charset="utf-8"
+		src="/js/polyfills/respond.js" />
+	<![endif]-->
+	<!--[if IE 9]>
+	<script
+		type="text/javascript" charset="utf-8"
+		src="/js/polyfills/classList.js" />
+	<![endif]-->
+<!--_________________________________________________________________________-->
+
+	<script type="text/javascript" charset="utf-8" src="/js/jquery.js"></script>
+	<script type="text/javascript" charset="utf-8" src="/js/jquery-migrate.js"></script>
+	<script type="text/javascript" charset="utf-8" src="/js/modules/slick.js"></script>
+	<script type="text/javascript" charset="utf-8" src="/js/modules/isotope.min.js"></script>
+	<script type="text/javascript" charset="utf-8" src="/js/modules/imagesloaded.min.js"></script>
+
+
+	<meta name="apple-mobile-web-app-title" content="Couchbase">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="google-site-verification" content="1gPO0RaMzKyZJFpS-iyIEnPsWDztwZH0R3vG1VpSwvM" />
+
+	<link rel="apple-touch-icon-precomposed" href="/apple-touch-icon-precomposed.png" />
+
+	<!-- LOCAL CSS Libs -->
+	<link rel="stylesheet" href="/css/fonts.css" />
+	<link rel="stylesheet" href="/css/application.css" />
+	<link rel="stylesheet" href="/css/primary-navigation.css" />
+	<link rel="stylesheet" href="/css/download.css" />
+	<link rel="stylesheet" href="/css/product.css" />
+	<link rel="stylesheet" href="/css/home.css" />
+	<link rel="stylesheet" href="/css/couchfont.css" />
+	<link rel="stylesheet" href="/css/couchStyle.css" />
+
+
+	<meta name="description" content="Now that you added the SDK dependency to your project, you can proceed and implement the classic &quot;Hello World&quot; example."/>
+<title>Hello Couchbase Example</title>
+<link rel="canonical" href="http://developer.couchbase.com/documentation/server/4.0/sdks/java-2.2/hello-couchbase.html"/>
+<link rel="stylesheet" href="/css/devportal.css"/>
+</head>
+<body>
+<script>
+	var overrideCssPath = "/binaries/content/assets/css/overrides.css";
+	$.ajax({
+	    url: overrideCssPath,
+	    type: 'HEAD',
+	    error: function() { },
+	    success: function()
+	    {
+	        // file exists
+		    $('head').append('<link rel="stylesheet" href="'+overrideCssPath+'"></link>');
+	    }
+	});
+	var overrideJsPath = "/binaries/content/assets/js/overrides.js";
+	$.ajax({
+	    url: overrideJsPath,
+	    type: 'HEAD',
+	    error: function() { },
+	    success: function()
+	    {
+	        // file exists
+		    $.getScript(overrideJsPath);
+	    }
+	});
+</script>
+
+
+<!-- Google Tag Manager -->
+<noscript>
+	<iframe src="//www.googletagmanager.com/ns.html?id=GTM-MVPNN2" height="0"
+		width="0" style="display:none;visibility:hidden"></iframe>
+</noscript>
+<script type="text/javascript">
+
+	window['jQuery'](document).ready(function() {
+
+		function initTagManager(w, d, s, l, i) {
+			w[l] = w[l] || [];
+			w[l].push({
+				'gtm.start': new Date().getTime(), event: 'gtm.js'
+			});
+			var f = d.getElementsByTagName(s)[0],
+				j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : '';
+			j.async = true;
+			j.src =
+				'//www.googletagmanager.com/gtm.js?id=' + i + dl;
+			f.parentNode.insertBefore(j, f);
+		}
+
+		initTagManager.apply(window, [window, document, 'script', 'dataLayer', 'GTM-MVPNN2']);
+
+	});
+
+</script>
+<!-- End Google Tag Manager -->
+
+<!--    ________________
+_______/ Body tag start \____________________________________________________-->
+
+	<!-- begin - hst:include ref=header -->
+	<nav class="aux">
+	<div>
+		<ul>
+				<li><a href="/sign-in">Sign In</a> or <a href="/register">Register</a> </li>
+			</ul>
+		</div>
+</nav>
+
+
+<!-- Beginning of site.../jsp/base/header.jsp -->
+<header role="banner" id="global-header" class="global-header">
+	<div class="layout-wrapper">
+		<h1 class="global-header__logo">
+			<a rel="home" href='/home'>Couchbase</a>
+		</h1>
+
+        <a data-modules="navigation,globalheadersearch"></a>
+<nav role="navigation" id="primary-navigation" class="primary-navigation">
+    <button aria-controls="primary-navigation__wrapper"
+        aria-pressed="false"
+        class="primary-navigation__toggler"
+        type="button">
+
+        <span>Menu</span>
+    </button>
+    <div id="primary-navigation__wrapper"
+        class="primary-navigation__wrapper"
+        aria-expanded="false">
+
+        <ul class="primary-navigation__items">
+            
+
+
+
+
+
+
+
+
+
+
+
+
+	
+	
+		
+	
+
+
+
+	
+	
+		
+	
+
+
+
+<li class="primary-navigation__item ">
+
+	<a href="http://www.couchbase.com/nosql-resources/what-is-no-sql">Why NoSQL?</a>
+
+	
+
+</li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+	
+		
+	
+
+
+
+	
+		
+	
+	
+
+
+
+<li class="primary-navigation__item has-secondary-navigation">
+
+	<a href="http://www.couchbase.com/nosql-databases/couchbase-server">Products</a>
+
+	
+		<div class="secondary-navigation">
+			<ul class="secondary-navigation__items">
+				
+					
+						
+						
+							
+						
+					
+					<li class="secondary-navigation__item">
+						<a href="http://www.couchbase.com/nosql-databases/couchbase-server">Couchbase Server</a>
+					</li>
+				
+					
+						
+						
+							
+						
+					
+					<li class="secondary-navigation__item">
+						<a href="http://www.couchbase.com/nosql-databases/couchbase-mobile">Couchbase Mobile</a>
+					</li>
+				
+					
+						
+						
+							
+						
+					
+					<li class="secondary-navigation__item">
+						<a href="http://www.couchbase.com/n1ql">Learn About N1QL</a>
+					</li>
+				
+					
+						
+						
+							
+						
+					
+					<li class="secondary-navigation__item">
+						<a href="http://www.couchbase.com/get-started-developing-nosql">Get Started</a>
+					</li>
+				
+					
+						
+							
+						
+						
+					
+					<li class="secondary-navigation__item">
+						<a href="http://www.couchbase.com/nosql-databases/downloads">Free Downloads</a>
+					</li>
+				
+			</ul>
+		</div>
+	
+
+</li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+		
+	
+	
+
+
+
+	
+		
+	
+	
+
+
+
+<li class="primary-navigation__item has-secondary-navigation">
+
+	<a href="http://www.couchbase.com/use-cases">Use Cases</a>
+
+	
+		<div class="secondary-navigation">
+			<ul class="secondary-navigation__items">
+				
+					
+						
+							
+						
+						
+					
+					<li class="secondary-navigation__item">
+						<a href="http://www.couchbase.com/use-cases/profile-management">Profile Management</a>
+					</li>
+				
+					
+						
+							
+						
+						
+					
+					<li class="secondary-navigation__item">
+						<a href="http://www.couchbase.com/use-cases/content-management">Content Management</a>
+					</li>
+				
+					
+						
+							
+						
+						
+					
+					<li class="secondary-navigation__item">
+						<a href="http://www.couchbase.com/use-cases/customer-360-view">Customer 360˚ View</a>
+					</li>
+				
+					
+						
+							
+						
+						
+					
+					<li class="secondary-navigation__item">
+						<a href="http://www.couchbase.com/use-cases/fraud-detection">Fraud Detection</a>
+					</li>
+				
+					
+						
+							
+						
+						
+					
+					<li class="secondary-navigation__item">
+						<a href="http://www.couchbase.com/use-cases/internet-of-everything">Internet of Everything</a>
+					</li>
+				
+					
+						
+							
+						
+						
+					
+					<li class="secondary-navigation__item">
+						<a href="http://www.couchbase.com/use-cases/digital-communication">Digital Communication</a>
+					</li>
+				
+					
+						
+							
+						
+						
+					
+					<li class="secondary-navigation__item">
+						<a href="http://www.couchbase.com/use-cases/personalization">Personalization</a>
+					</li>
+				
+					
+						
+							
+						
+						
+					
+					<li class="secondary-navigation__item">
+						<a href="http://www.couchbase.com/use-cases/mobile-applications">Mobile Applications</a>
+					</li>
+				
+					
+						
+							
+						
+						
+					
+					<li class="secondary-navigation__item">
+						<a href="http://www.couchbase.com/use-cases/catalogs">Catalogs</a>
+					</li>
+				
+					
+						
+							
+						
+						
+					
+					<li class="secondary-navigation__item">
+						<a href="http://www.couchbase.com/use-cases/real-time-big-data">Real-Time Big Data</a>
+					</li>
+				
+			</ul>
+		</div>
+	
+
+</li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+	
+		
+	
+
+
+
+	
+		
+	
+	
+
+
+
+<li class="primary-navigation__item has-secondary-navigation">
+
+	<a href="http://training.couchbase.com/">Training</a>
+
+	
+		<div class="secondary-navigation">
+			<ul class="secondary-navigation__items">
+				
+					
+						
+						
+							
+						
+					
+					<li class="secondary-navigation__item">
+						<a href="http://training.couchbase.com/online">Free Online Training</a>
+					</li>
+				
+					
+						
+						
+							
+						
+					
+					<li class="secondary-navigation__item">
+						<a href="http://training.couchbase.com/classes">Classroom Hands-On</a>
+					</li>
+				
+					
+						
+						
+							
+						
+					
+					<li class="secondary-navigation__item">
+						<a href="http://training.couchbase.com/virtual">Virtual Hands-On</a>
+					</li>
+				
+					
+						
+						
+							
+						
+					
+					<li class="secondary-navigation__item">
+						<a href="http://training.couchbase.com/onsite-delivery">On-Site Hands-On</a>
+					</li>
+				
+			</ul>
+		</div>
+	
+
+</li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+		
+	
+	
+
+
+
+	
+		
+	
+	
+
+
+
+<li class="primary-navigation__item has-secondary-navigation">
+
+	<a href="http://developer.couchbase.com">Developers</a>
+
+	
+		<div class="secondary-navigation">
+			<ul class="secondary-navigation__items">
+				
+					
+						
+							
+						
+						
+					
+					<li class="secondary-navigation__item">
+						<a href="http://developer.couchbase.com">Developer Portal</a>
+					</li>
+				
+					
+						
+						
+							
+						
+					
+					<li class="secondary-navigation__item">
+						<a href="http://developer.couchbase.com/open-source-projects">Open Source Projects</a>
+					</li>
+				
+					
+						
+						
+							
+						
+					
+					<li class="secondary-navigation__item">
+						<a href="https://forums.couchbase.com">Forums</a>
+					</li>
+				
+					
+						
+							
+						
+						
+					
+					<li class="secondary-navigation__item">
+						<a href="http://www.couchbase.com/code-of-conduct">Code of Conduct</a>
+					</li>
+				
+			</ul>
+		</div>
+	
+
+</li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+	
+		
+	
+
+
+
+	
+		
+	
+	
+
+
+
+<li class="primary-navigation__item has-secondary-navigation">
+
+	<a href="http://www.couchbase.com/nosql-resources">Resources</a>
+
+	
+		<div class="secondary-navigation">
+			<ul class="secondary-navigation__items">
+				
+					
+						
+						
+							
+						
+					
+					<li class="secondary-navigation__item">
+						<a href="http://www.couchbase.com/nosql-resources/what-is-no-sql">Why NoSQL?</a>
+					</li>
+				
+					
+						
+						
+							
+						
+					
+					<li class="secondary-navigation__item">
+						<a href="http://www.couchbase.com/nosql-resources/webinar">Webinars</a>
+					</li>
+				
+					
+						
+						
+							
+						
+					
+					<li class="secondary-navigation__item">
+						<a href="http://www.couchbase.com/nosql-resources/presentations">Presentations</a>
+					</li>
+				
+					
+						
+						
+							
+						
+					
+					<li class="secondary-navigation__item">
+						<a href="http://www.couchbase.com/nosql-resources/nosql-whitepapers">Whitepapers</a>
+					</li>
+				
+					
+						
+						
+							
+						
+					
+					<li class="secondary-navigation__item">
+						<a href="http://developer.couchbase.com/guides-and-references">Documentation</a>
+					</li>
+				
+					
+						
+							
+						
+						
+					
+					<li class="secondary-navigation__item">
+						<a href="http://blog.couchbase.com">Blog</a>
+					</li>
+				
+					
+						
+						
+							
+						
+					
+					<li class="secondary-navigation__item">
+						<a href="http://www.couchbase.com/nosql-resources/events">Events</a>
+					</li>
+				
+					
+						
+						
+							
+						
+					
+					<li class="secondary-navigation__item">
+						<a href="http://connect15.couchbase.com/sessions/">Couchbase Connect 2015</a>
+					</li>
+				
+					
+						
+						
+							
+						
+					
+					<li class="secondary-navigation__item">
+						<a href="http://www.couchbase.com/case-studies">Customer Stories</a>
+					</li>
+				
+			</ul>
+		</div>
+	
+
+</li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+	
+		
+	
+
+
+
+	
+	
+		
+	
+
+
+
+<li class="primary-navigation__item ">
+
+	<a href="http://www.couchbase.com/subscriptions-and-support">Subscriptions</a>
+
+	
+
+</li>
+</ul>
+        <form id="global-header-search"
+	        autocomplete="off"
+            class="global-header-search global-header-search--js"
+            action="/search"
+            aria-expanded="false">
+	        <ul><!--
+            ---><li>
+                    <label for="global-header-search__query">
+                        Search query
+                    </label>
+                    <input
+                        type="search"
+                        placeholder="Search"
+                        name="q"
+	                    value=""
+                        id="global-header-search__query">
+                </li><!--
+                ---><li>
+                    <button type="submit">
+                        <span>Search</span>
+                    </button>
+                </li><!--
+        ---></ul>
+            <button aria-controls="global-header-search__items"
+                aria-pressed="false"
+                class="global-header-search__toggler"
+                type="button">
+                <span>Search</span>
+            </button><!--
+        --->
+
+
+
+
+
+
+
+
+
+
+
+
+<div style="display: none" about="custom-search-fields">
+
+	<input type="hidden"
+		name="cx"
+		value="017928787631531434501:3e7lwhjxsom" />
+	<input type="hidden"
+		name="cof"
+		value="FORID:11" />
+	<input type="hidden"
+		name="safe"
+		value="off" />
+	<input type="hidden"
+		name="form_build_id"
+		value="form-RrbKDUhO3kB2MiqBdZHIQI9L4LFE7c3L_s87N2B9BZo" />
+	<input type="hidden"
+		name="form_id"
+		value="google_cse_results_searchbox_form" />
+	
+	<input type="hidden"
+		name="siteurl"
+		value='www.couchbase.com' />
+
+</div>
+</form>
+    </div>
+</nav>
+<a class="global-header__download-button" href="/downloads">
+			Download
+		</a>
+	</div>
+</header>
+<!-- End of site.../jsp/base/header.jsp -->
+<!-- end - hst:include ref=header -->
+
+	<main id="global-content" class="global-content" role="main">
+
+		<!-- begin - hst:include ref=main -->
+		<nav class="section">
+	<div class="wrapper">
+		<ul class="level-1">
+				
+
+
+
+
+
+
+
+
+
+
+
+
+	
+		
+	
+	
+
+
+
+	
+		
+	
+	
+
+
+
+<li class="primary-navigation__item has-secondary-navigation">
+
+	<a href="/guides-and-references">Guides and References</a>
+
+	
+		<div class="secondary-navigation">
+			<ul class="secondary-navigation__items">
+				
+					
+						
+						
+							
+						
+					
+					<li class="secondary-navigation__item">
+						<a href="http://developer.couchbase.com/guides-and-references#couchbase-server%C2%A040">Couchbase Server</a>
+					</li>
+				
+					
+						
+							
+						
+						
+					
+					<li class="secondary-navigation__item">
+						<a href="/guides-and-references#sdks-anchor">SDKs</a>
+					</li>
+				
+					
+						
+							
+						
+						
+					
+					<li class="secondary-navigation__item">
+						<a href="/guides-and-references#connector-guides-anchor">Connectors</a>
+					</li>
+				
+					
+						
+						
+							
+						
+					
+					<li class="secondary-navigation__item">
+						<a href="http://developer.couchbase.com/guides-and-references#couchbase-mobile%C2%A0110">Couchbase Mobile</a>
+					</li>
+				
+					
+						
+							
+						
+						
+					
+					<li class="secondary-navigation__item">
+						<a href="http://developer.couchbase.com/documentation-archive">Documentation Archive</a>
+					</li>
+				
+			</ul>
+		</div>
+	
+
+</li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+		
+	
+	
+
+
+
+	
+	
+		
+	
+
+
+
+<li class="primary-navigation__item ">
+
+	<a href="http://developer.couchbase.com/server">Couchbase Server</a>
+
+	
+
+</li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+		
+	
+	
+
+
+
+	
+	
+		
+	
+
+
+
+<li class="primary-navigation__item ">
+
+	<a href="http://developer.couchbase.com/mobile">Couchbase Mobile</a>
+
+	
+
+</li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+		
+	
+	
+
+
+
+	
+	
+		
+	
+
+
+
+<li class="primary-navigation__item ">
+
+	<a href="http://developer.couchbase.com/support">Support</a>
+
+	
+
+</li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+		
+	
+	
+
+
+
+	
+		
+	
+	
+
+
+
+<li class="primary-navigation__item has-secondary-navigation">
+
+	<a href="http://developer.couchbase.com/community">Community</a>
+
+	
+		<div class="secondary-navigation">
+			<ul class="secondary-navigation__items">
+				
+					
+						
+							
+						
+						
+					
+					<li class="secondary-navigation__item">
+						<a href="http://developer.couchbase.com/open-source-projects">Open Source Projects</a>
+					</li>
+				
+					
+						
+						
+							
+						
+					
+					<li class="secondary-navigation__item">
+						<a href="http://forums.couchbase.com/">Community Forums</a>
+					</li>
+				
+					
+						
+						
+							
+						
+					
+					<li class="secondary-navigation__item">
+						<a href="http://www.couchbase.com/nosql-resources/events">Events</a>
+					</li>
+				
+					
+						
+						
+							
+						
+					
+					<li class="secondary-navigation__item">
+						<a href="http://blog.couchbase.com">Blogs</a>
+					</li>
+				
+					
+						
+							
+						
+						
+					
+					<li class="secondary-navigation__item">
+						<a href="http://developer.couchbase.com/experts-and-champions">Experts &amp; Champions</a>
+					</li>
+				
+			</ul>
+		</div>
+	
+
+</li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+		
+	
+	
+
+
+
+	
+	
+		
+	
+
+
+
+<li class="primary-navigation__item ">
+
+	<a href="http://developer.couchbase.com/contribute">Contribute</a>
+
+	
+
+</li>
+</ul>
+		</div>
+</nav><!-- Beginning of site.../jsp/base/main.jsp -->
+
+<!-- LEFT NAV assets -->
+<script src="/webfiles/1443270696376/js/collapse.js"></script>
+
+<div id="page-template-attributes" data-template-id="" data-template-class="learn-support-sec article-tpl"></div>
+
+<!-- LEFTNAV and ARTICLE -->
+<section class="tpl-body">
+
+<div class="wrapper">
+	<!--
+	Appears in mobile resolution.
+	-->
+	<div class="current-article">
+		<a href="#" onclick="$('.section-nav').slideToggle();return false;">Hello Couchbase Example</a>
+	</div>
+	
+	<div class="cols">
+	
+		<div class="col one-fifth section-nav">
+			
+			<!--
+			Appears in desktop resolution.
+			Hidden in mobile resolution until the current article link is clicked.
+			-->
+			<div>
+				<ul>
+					<li><a href="/guides-and-references">Couchbase Server</a>
+					<ul><li><a href="/documentation/server/4.0/introduction/intro.html">Introduction</a></li><li><a href="/documentation/server/4.0/getting-started/index.html">Getting started</a></li><li><a href="/documentation/server/4.0/concepts/concepts-architecture-intro.html">Concepts and architecture</a></li><li><a href="/documentation/server/4.0/install/installation-guide-intro.html">Installation guide</a></li><li><a href="/documentation/server/4.0/admin/admin-intro.html">Administration guide</a></li><li><a href="/documentation/server/4.0/developer-guide/intro.html">Developer guide</a></li><li><a href="/documentation/server/4.0/sdks/intro.html">SDKs</a><ul><li><a href="/documentation/server/4.0/sdks/c-2.4/c-intro.html">C SDK 2.4/2.5</a></li><li><a href="/documentation/server/4.0/sdks/go-beta/introduction.html">Go SDK 1.0</a></li><li><a href="/documentation/server/4.0/sdks/java-2.2/java-intro.html">Java SDK 2.2</a><ul><li><a href="/documentation/server/4.0/sdks/java-2.2/overview.html">Overview</a></li><li><a href="/documentation/server/4.0/sdks/java-2.2/download-links.html">Download and API reference</a></li><li><a href="/documentation/server/4.0/sdks/java-2.2/migrate.html">Migrating from Java SDK 1.4.x to 2.x</a></li><li><a href="/documentation/server/4.0/sdks/java-2.2/getting-started.html">Getting started with the Java SDK</a><ul><li><a class="selected" href="/documentation/server/4.0/sdks/java-2.2/hello-couchbase.html">Hello Couchbase Example</a></li><li><a href="/documentation/server/4.0/sdks/java-2.2/tutorial4.html">Java SDK tutorial</a></li></ul></li><li><a href="/documentation/server/4.0/sdks/java-2.2/managing-connections.html">Managing connections</a></li><li><a href="/documentation/server/4.0/sdks/java-2.2/managing-cluster.html">Managing clusters</a></li><li><a href="/documentation/server/4.0/sdks/java-2.2/env-config.html">Configuring the environment</a></li><li><a href="/documentation/server/4.0/sdks/java-2.2/documents.html">Working with documents</a></li><li><a href="/documentation/server/4.0/sdks/java-2.2/querying.html">Querying buckets</a></li><li><a href="/documentation/server/4.0/sdks/java-2.2/rxjava.html">RxJava and reactive programming</a></li><li><a href="/documentation/server/4.0/sdks/java-2.2/event-bus-metrics.html">Production considerations</a></li><li><a href="/documentation/server/4.0/sdks/java-2.2/logging.html">Setting up logging</a></li><li><a href="/documentation/server/4.0/sdks/java-2.2/release-notes.html">Release notes</a></li></ul></li><li><a href="/documentation/server/4.0/sdks/dotnet-2.2/dotnet-intro.html">.NET SDK 2.2</a></li><li><a href="/documentation/server/4.0/sdks/node-2.0/introduction.html">Node.js SDK 2.0/2.1</a></li><li><a href="/documentation/server/4.0/sdks/php-2.0/php-intro.html">PHP SDK 2.0/2.1</a></li><li><a href="/documentation/server/4.0/sdks/python-2.0/introduction.html">Python SDK 2.0</a></li></ul></li><li><a href="/documentation/server/4.0/connectors/intro.html">Connector guides</a></li><li><a href="/documentation/server/4.0/reference/intro.html">Reference guides</a></li><li><a href="/documentation/server/4.0/release-notes/release-notes-intro.html">Release notes</a></li></ul></li>
+				</ul>
+			</div>
+		</div>
+		
+		<div class="col four-fifths article">
+			
+			<div class="crumbs"> 
+				<ul><li><a href="#">Couchbase Server</a></li><li><a href="#">Version 4.0</a></li><li><a href="/documentation/server/4.0/sdks/intro.html">SDKs</a></li><li><a href="/documentation/server/4.0/sdks/java-2.2/java-intro.html">Java SDK 2.2</a></li><li><a href="/documentation/server/4.0/sdks/java-2.2/getting-started.html">Getting started with the Java SDK</a></li><li><a href="/documentation/server/4.0/sdks/java-2.2/hello-couchbase.html">Hello Couchbase Example</a></li></ul></div>
+			
+			<div class="story">
+			
+				<div class="utilities">
+					<a id="edit-in-github" class="xref github-fork" href="#" target="_blank">Edit this article in GitHub</a>
+					<div class="prev-next">
+						<a href="" class="last" id="previousTopic">
+							<span class="label">Previous Topic</span>
+						</a>
+						<a href="" class="next" id="nextTopic">
+							<span class="label">Next Topic</span>
+						</a>
+					</div>
+				</div>
+				
+				<div>
+						<script type="text/javascript" src="https://issues.couchbase.com/s/en_US-pvmaib-418945332/845/131/1.2.9/_/download/batch/com.atlassian.jira.collector.plugin.jira-issue-collector-plugin:issuecollector/com.atlassian.jira.collector.plugin.jira-issue-collector-plugin:issuecollector.js?collectorId=86389172"></script></div>
+				<div class="body">
+					<h1>Hello Couchbase Example</h1>
+					<p class="shortdesc">Now that you added the SDK dependency to your project, you can proceed and implement the classic "Hello World" example.</p> 
+<p class="p">Some important aspects are also covered along the way that will help you later.</p> 
+<p class="p">The first thing you need to do is connect to the cluster:</p> 
+<pre><code class="pre codeblock language-java">Cluster cluster = CouchbaseCluster.create();</code></pre> 
+<p class="p">With no other arguments provided, this connection will logically bind to a cluster where the cluster is reachable on <samp class="ph codeph">localhost</samp>. This type of connection is a reasonable default to get started during development, but in production you should pass in more seed nodes like this:</p> 
+<pre><code class="pre codeblock language-java">Cluster cluster = CouchbaseCluster.create("192.168.56.101", "192.168.56.102");</code></pre> 
+<p class="p">You do not need to pass in all nodes of the cluster, just a few seed nodes so that the client can establish the initial contact. The actual process of connecting to a bucket (that is, opening sockets and everything related) happens when you call the <samp class="ph codeph">openBucket</samp> method:</p> 
+<pre><code class="pre codeblock language-java">Bucket bucket = cluster.openBucket();</code></pre> 
+<p class="p">This will connect to the <samp class="ph codeph">default</samp> bucket and return a <samp class="ph codeph">Bucket</samp> reference.</p> 
+<p class="p">If you want to connect to a different bucket (also with a password), you can do it like this:</p> 
+<pre><code class="pre codeblock language-java">Bucket bucket = cluster.openBucket("bucket", "password");</code></pre> 
+<p class="p">When your application shuts down, you need to make sure to disconnect properly from the cluster to free all resources (sockets, threads, and so on). The following code shuts down the client:</p> 
+<pre><code class="pre codeblock language-java">cluster.disconnect();</code></pre> 
+<p class="p">This disconnects all buckets and makes the associated resources available.</p> 
+<p class="p">You now have a reference to the <samp class="ph codeph">Bucket</samp>, so you can begin working with it. The SDK comes with built-in handling for JSON documents, which you can use right away. First, create a <samp class="ph codeph">JsonObject</samp>, which contains information for a user.</p> 
+<pre><code class="pre codeblock language-java">JsonObject user = JsonObject.empty()
+    .put("firstname", "Walter")
+    .put("lastname", "White")
+    .put("job", "chemistry teacher")
+    .put("age", 50);</code></pre> 
+<p class="p">A <samp class="ph codeph">JsonObject</samp> works very much like a <samp class="ph codeph">Map</samp>, but it is designed to only let you insert values that can be stored as valid JSON (including nested objects and arrays). The resulting document looks like this:</p> 
+<pre><code class="pre codeblock language-json">{
+    "firstname":"Walter",
+    "job":"chemistry teacher",
+    "age":50,
+    "lastname":"White"
+}</code></pre> 
+<p class="p">To store the document, you can use the <samp class="ph codeph">upsert</samp> method on the <samp class="ph codeph">bucket</samp>. Because a document on the server has more properties than just the content, you need to give it at least a unique document ID (for example, <samp class="ph codeph">walter</samp>). The container for all this information is called a <samp class="ph codeph">Document</samp> and because you are dealing with JSON you need to create a <samp class="ph codeph">JsonDocument</samp>:</p> 
+<pre><code class="pre codeblock language-java">JsonDocument doc = JsonDocument.create("walter", user);
+JsonDocument response = bucket.upsert(doc);</code></pre> 
+<p class="p">The <samp class="ph codeph">Document</samp> is automatically converted into JSON and stored on the cluster. If the document (identified by its unique ID) already exists, it is replaced.</p> 
+<p class="p">If you replace <samp class="ph codeph">upsert</samp> with <samp class="ph codeph">insert</samp> and try to insert the same document twice (with the same ID), you see the following:</p> 
+<pre><code class="pre codeblock language-java">Exception in thread "main" com.couchbase.client.java.error.DocumentAlreadyExistsException
+    at com.couchbase.client.java.CouchbaseAsyncBucket$12.call(CouchbaseAsyncBucket.java:425)
+    at com.couchbase.client.java.CouchbaseAsyncBucket$12.call(CouchbaseAsyncBucket.java:409)
+    ...</code></pre> 
+<p class="p">This provides an important clue:</p> 
+<ul class="ul"> 
+ <li class="li"><samp class="ph codeph">insert</samp>, unlike <samp class="ph codeph">upsert</samp> fails if the document already exists on the server (very much like the SQL <samp class="ph codeph">INSERT</samp> statement).</li> 
+</ul> 
+<p class="p">Not surprisingly, you can also retrieve a <samp class="ph codeph">Document</samp> from the database. You do this by providing its ID:</p> 
+<pre><code class="pre codeblock language-java">JsonDocument walter = bucket.get("walter");
+System.out.println("Found: " + walter);</code></pre> 
+<p class="p">This prints:</p> 
+<pre><code class="pre codeblock language-java">Found: JsonDocument{id='walter', cas=16976883046781, expiry=0, content={"firstname":"Walter","job":"chemistry teacher","age":50,"lastname":"White"}}</code></pre> 
+<p class="p">If you want to print only the age, you can reach into the content (much like you would access a `Map`):</p> 
+<pre><code class="pre codeblock language-java">System.out.println("Age: " + walter.content().getInt("age"));</code></pre> 
+<p class="p">You can combine both commands to implement something that is needed very often: loading a document, modifying its content and then storing the modified document.</p> 
+<p class="p">First, here is one of the possible way to do it synchronously:</p> 
+<pre><code class="pre codeblock language-java">JsonDocument loaded = bucket.get("walter");
+if (loaded == null) {
+    System.err.println("Document not found!");
+} else {
+    loaded.content().put("age", 52);
+    JsonDocument updated = bucket.replace(loaded);
+    System.out.println("Updated: " + updated.id());
+}</code></pre> 
+<p class="p">The code uses the <samp class="ph codeph">get</samp> method to load the <samp class="ph codeph">Document</samp> and then waits until it arrives from the server (returns <samp class="ph codeph">null</samp> as the default value if it does not exist). If it is not null, the content is modified and the document is stored again through the synchronous <samp class="ph codeph">replace</samp> method. You can think of <samp class="ph codeph">replace</samp> as the opposite of <samp class="ph codeph">insert</samp>—if the document does not already exist, the call will fail with a <samp class="ph codeph">DocumentDoesNotExistException</samp>.</p> 
+<p class="p">The code shown above is completely synchronous, which means that your main thread will wait all the time until a response comes back from the server. It waits for network IO to happen while instead it could perform valuable work. Instead of waiting and "pulling" the data out of the SDK, you can just keep going forward in your application flow and let the SDK notify you once it's done with work.</p> 
+<p class="p"><samp class="ph codeph">Observable</samp>s provide a large range of methods and functionality to create, combine and transform asynchronous workflows and make them look synchronous (while they aren't). Other approaches quickly get you into "callback hell" and are complicated dealing with futures, especially if you want to chain more than one asynchronous operation together, let alone proper error handling.</p> 
+<p class="p">Here is the very same example, but completely non-blocking (note that you want to keep your main thread alive with a <samp class="ph codeph">Thread.sleep()</samp> for now or use <samp class="ph codeph">CountDownLatch</samp>):</p> 
+<pre><code class="pre codeblock language-java">bucket
+    .async()
+    .get("walter")
+    .flatMap(new Func1&lt;JsonDocument, Observable&lt;JsonDocument&gt;&gt;() {
+        @Override
+        public Observable&lt;JsonDocument&gt; call(final JsonDocument loaded) {
+            loaded.content().put("age", 52);
+            return bucket.async().replace(loaded);
+        }
+    })
+    .subscribe(new Action1&lt;JsonDocument&gt;() {
+        @Override
+        public void call(final JsonDocument updated) {
+            System.out.println("Updated: " + updated.id());
+        }
+    });</code></pre> 
+<p class="p">Note how you can get access to the underlying asynchronous interfaces by using the <samp class="ph codeph">async()</samp> method on the bucket.</p> 
+<p class="p">Without going too much in-depth about how <samp class="ph codeph">Observables</samp> work just yet, it is not too hard to guess what is happening. The document is loaded through the <samp class="ph codeph">get</samp> method, and after it is done, the <samp class="ph codeph">flatMap</samp> method is executed. This method changes the content and calls the <samp class="ph codeph">replace</samp> method. After the replace is done, the <samp class="ph codeph">Subscriber</samp> is called, and the line is printed. You do not need to check for <samp class="ph codeph">null</samp> here because the whole chain is just not executed if the document is not found in the first place.</p> 
+<p class="p">The style shown above is Java6/7 with anonymous classes. If you are already using Java 8, you can replace the same code with lambdas to make it much nicer and succinct:</p> 
+<pre><code class="pre codeblock language-java">bucket
+    .async()
+    .get("walter")
+    .flatMap(loaded -&gt; {
+        loaded.content().put("age", 52);
+        return bucket.async().replace(loaded);
+    })
+    .subscribe(updated -&gt; System.out.println("Updated: " + updated.id()));</code></pre> 
+<p class="p">Because this flow is asynchronous, every "callback" is run in a specific thread, different from the one you were executing the call (at this point most likely <samp class="ph codeph">main</samp>). Since this one-off example is different from long-running server applications (which are not shut down after one operation), it is a good idea to synchronize and wait after the last operation is finished.</p> 
+<p class="p">A naive way is to add a <samp class="ph codeph">Thread.sleep(1000)</samp> after the last call to keep the current thread alive for a second and hope that the operation is done:</p> 
+<pre><code class="pre codeblock language-java">bucket
+    .async()
+    .get("walter")
+    .flatMap(loaded -&gt; {
+        loaded.content().put("age", 52);
+        return bucket.async().replace(loaded);
+    })
+    .subscribe(updated -&gt; System.out.println("Updated: " + updated.id()));
+
+Thread.sleep(1000);</code></pre> 
+<p class="p">Usually, it takes a shorter amount of time, so you are just wasting time. And in the unlikely case that it takes longer, it doesn't work properly. So a better way is the use of a <samp class="ph codeph">CountDownLatch</samp>, which ships with the JDK. One thread counts it down and the other waits until its counted down:</p> 
+<pre><code class="pre codeblock language-java">final CountDownLatch latch = new CountDownLatch(1);
+bucket
+    .async()
+    .get("walter")
+    .flatMap(loaded -&gt; {
+        loaded.content().put("age", 52);
+        return bucket.async().replace(loaded);
+    })
+    .subscribe(
+        System.out::println,
+        err -&gt; {
+            err.printStackTrace();
+            latch.countDown();
+        },
+        latch::countDown
+    );
+
+latch.await();</code></pre> 
+<p class="p">The example shows a better, if not a perfect solution. Because your subscriber (the callbacks) is called from a different thread, without more changes on your side, you do not have access to either the computed values or the error that is thrown. You can work around that by using atomic variables from the concurrent package, but thankfully RxJava has you covered as well. You can use the <samp class="ph codeph">toBlocking</samp> methods, which will return you the result(s) in a blocking fashion, as well as propagate any errors of the flow as exceptions to your calling thread:</p> 
+<pre><code class="pre codeblock language-java">JsonDocument result = bucket
+    .async()
+    .get("walter")
+    .flatMap(loaded -&gt; {
+        loaded.content().put("age", 52);
+        return bucket.async().replace(loaded);
+    })
+    .toBlocking()
+    .single();</code></pre> 
+<p class="p">So remember that instead of using latches, always use <samp class="ph codeph">toBlocking</samp> and its different ways to extract the data. You can learn more about that in <a class="xref" href="observables.html#concept2677" title="This section helps you to get up to speed with asynchronous programming and Observable objects in particular.">Mastering Observables</a>.</p> 
+<p class="p">In <samp class="ph codeph">Couchbase 4.0</samp>, a new query language has been introduced: N1QL. Since it is a superset of SQL, we can write a Hello World example using N1QL. Make sure to have the query service activated in your cluster and a primary index created on your bucket. See <a class="xref" href="../../developer-guide/querying.html" title="You can use the N1QL query language to search and query documents from your applications.">Querying with N1QL</a>):</p> 
+<pre><code class="pre codeblock language-java">String statement = "SELECT firstname FROM `default` WHERE age BETWEEN 49 AND 59";
+N1qlQuery query = N1qlQuery.simple(statement);
+N1qlQueryResult result = bucket.query(query);
+System.out.println("Hello, users in their fifties: ");
+for (N1qlQueryRow row : result)
+{ String firstName = row.value().getString("firstname"); System.out.println(firstName + "!"); }
+//prints:
+// “Hello, users in their fifties:
+// Walter!"</code></pre> 
+<p class="p">For the statement, you can alternatively use the DSL:</p> 
+<pre><code class="pre codeblock language-java">Statement statement = Select.select(x("firstname")).from(i("default"))
+	.where(x("age").between(49).and(59));
+N1qlQuery query = N1qlQuery.simple(statement);</code></pre> 
+<p class="p">Congratulations, you've completed your first steps towards Couchbase mastery! At this point, you can either proceed with the complete tutorial application or browse through the rest of the documentation as you see fit.</p><nav role="navigation" class="related-links"><div class="familylinks"> 
+ <div class="parentlink">
+  <strong>Parent topic:</strong> 
+  <a class="link" href="../../sdks/java-2.2/getting-started.html" title="This guide provides an introduction to the Couchbase Java SDK. It shows you how to install the SDK and write a basic sample application that highlights important aspects.">Getting started with the Java SDK</a>
+ </div> 
+ <div class="nextlink">
+  <strong>Next topic:</strong> 
+  <a class="link" href="../../sdks/java-2.2/tutorial4.html" title="The Java SDK tutorial bridges the gap between simple and advanced concepts by walking through a complete web application.">Java SDK tutorial</a>
+ </div> 
+</div></nav></div>
+				
+				<div class="footer">				
+					
+					<div class="prev-next">
+						<a href="" class="last" id="previousTopicFooter">
+							<span class="label">Previous Topic</span>
+							<span class="topic" id="previousTopicFooterLabel"></span>
+						</a>
+						<a href="" class="next" id="nextTopicFooter">
+							<span class="label">Next Topic</span>
+							<span class="topic"  id="nextTopicFooterLabel"></span>
+						</a>
+						</div>
+					
+				</div><!-- .story .footer -->
+			</div><!-- .story -->
+	
+		</div><!-- .col -->
+	</div><!-- .cols -->
+</div><!-- .wrapper -->
+<script>
+
+	/* Create TOC (Table of Contents) if there is more than 1 h2. */
+	if($('.story .body h2').length && $('.story .body h2').length > 1){
+		var i = 1;
+		$('.story .utilities').append('<div class="toc"><h2>On This Page</h2><ol></ol></div>');
+		$('.story .body h2').each(function(){
+			var linkId = "story-h2-" + i;
+			var text = $(this).text();
+			$('.story .toc ol').append('<li><a href="#' + linkId + '">' + text + '</a></li>');
+			$(this).before('<a id="'+ linkId + '" href="#' + linkId + '" class="reader">' + text + '</a>');
+			
+			i += 1;
+		});
+		console.log($('.story .body h2').length);	
+	}
+	
+	/* Assign GitHub link in body to link in utilities area. */
+	// When commenting this code back in, remove the custom CSS below as well.
+	/*
+	if($('.story .body a.xref').length){
+		var href = $('.story .body a.xref').attr('href');
+		$('#edit-in-github').attr('href',href);
+	}
+	*/
+	
+	/* Add classes to elements for standard CSS formatting. */
+	$('.story ul.ul').addClass('bullets');
+	$('.story ol.ol').addClass('numbers');
+
+
+	// generate previous and next links 
+	var myLinks = [];
+	var selectedAnchor = $('.section-nav .selected');
+	var selectedIndex;
+	var index = 0;
+	var previousUrl = "";
+	//find all anchors in the nav menu
+	//loop and find index of selected page
+	$(".section-nav a").each(function() {
+		var href = $(this).attr("href");
+		
+		//duplicate URL skip this URL
+		if(previousUrl == href ){
+			return true;
+		}
+		
+		if (selectedAnchor.attr("href") == href) {
+			//store index of current page
+			selectedIndex = index;
+		}
+		
+		var navLink = new Object();
+		navLink.href = href;
+		navLink.linkName = $(this).html();
+		myLinks.push(navLink);
+		previousUrl = href;
+		index++;
+			
+	});
+	
+	if(selectedIndex > 1) {
+		//set href value and link label for previous topic anchors
+		$("#previousTopic").attr("href", myLinks[selectedIndex-1].href);
+		$("#previousTopicFooter").attr("href", myLinks[selectedIndex-1].href);
+		$("#previousTopicFooterLabel").html(myLinks[selectedIndex-1].linkName);
+	} else {
+		//they are on first page hide previous topic link
+		$("#previousTopic").hide();
+		$("#previousTopicFooter").hide();
+	}
+	
+	if(selectedIndex < myLinks.length-1) {
+		//set href value and link label for next topic anchors
+		$("#nextTopic").attr("href", myLinks[selectedIndex+1].href);
+		$("#nextTopicFooter").attr("href", myLinks[selectedIndex+1].href);
+		$("#nextTopicFooterLabel").html(myLinks[selectedIndex+1].linkName);
+	} else {
+		//they are on last page hide next topic link
+		$("#nextTopic").hide();
+		$("#nextTopicFooter").hide();
+	}
+</script>
+<style>
+#edit-in-github{display:none;}
+</style>
+
+</section>
+	<script>
+		$(function() {
+			$('.custom-click-query').collapse({
+				clickQuery : '.toggle',
+				open : function() {
+					this.slideDown(550);
+				},
+				close : function() {
+					this.slideUp(550);
+				}
+			});
+			$(".custom-click-query").bind(
+					"opened",
+					function(e, section) {
+						$(e.target).find('i').removeClass('fa-caret-right')
+								.addClass('fa-caret-down');
+						section.$summary.closest('i').removeClass(
+								'fa-caret-right').addClass('fa-caret-down');
+					});
+			$(".custom-click-query").bind(
+					"closed",
+					function(e, section) {
+						$(e.target).find('i').removeClass('fa-caret-down')
+								.addClass('fa-caret-right');
+						section.$summary.closest('i').removeClass(
+								'fa-caret-down').addClass('fa-caret-right');
+					});
+			var $tarElement = $('li').children('div');
+			$tarElement.find('.open .toggle').removeClass('fa-caret-right')
+					.addClass('fa-caret-down');
+
+			$(".toggle").on('click', function() {
+				$(this).toggleClass('rotate').addClass('perm');
+				$(this).toggleClass('rotate2');
+			});
+			$(".list-link, .list-link li").mouseenter(
+					function() {
+						$(this).find('i.toggle').first().removeClass('fader')
+								.addClass('couch-icon-triangle-right')
+					}).mouseleave(function() {
+
+				$(this).find('i.toggle').first().addClass('fader');
+
+			});
+			$('ul.list-main .selected').parents('ul').css('display', 'block');
+		});
+	</script>
+<!-- End of site.../jsp/base/main.jsp --><!-- end - hst:include ref=main -->
+
+	</main>
+
+	<!-- begin - hst:include ref=footer -->
+	<!-- Beginning of site.../jsp/base/footer.jsp -->
+<div id="global-footer" class="global-footer">
+	<div class="layout-wrapper">
+		<div class="global-footer__contact">
+			<a class="cta2 button global-footer__contact__button" href="http://www.couchbase.com/contact">Contact</a>
+
+			<ul class="global-footer__contact__social">
+				<li>
+					<a class="linkedin" href="http://www.linkedin.com/company/couchbase">LinkedIn</a>
+				</li>
+				<li>
+					<a class="twitter" href="https://twitter.com/couchbase">Twitter</a>
+				</li>
+				<li>
+					<a class="facebook" href="https://www.facebook.com/Couchbase">Facebook</a>
+				</li>
+				<li>
+					<a class="googleplus" href="https://plus.google.com/+CouchbaseServer">Google+</a>
+				</li>
+			</ul>
+		</div>
+
+        <nav role="navigation" class="footer-navigation">
+
+  <div class="footer-navigation__group">
+        
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+
+<h1 class="footer-navigation__title">
+  <a href="http://www.couchbase.com/nosql-databases/couchbase-server">Products</a>
+</h1>
+
+
+  <ul class="footer-navigation__items">
+    
+      
+        
+        
+          
+        
+      
+      <li class="footer-navigation__item">
+          <a href="http://www.couchbase.com/nosql-resources/what-is-no-sql">Why NoSQL?</a>
+      </li>
+    
+      
+        
+        
+          
+        
+      
+      <li class="footer-navigation__item">
+          <a href="http://www.couchbase.com/nosql-databases/couchbase-server">Couchbase Server</a>
+      </li>
+    
+      
+        
+        
+          
+        
+      
+      <li class="footer-navigation__item">
+          <a href="http://www.couchbase.com/nosql-databases/couchbase-mobile">Couchbase Mobile</a>
+      </li>
+    
+      
+        
+        
+          
+        
+      
+      <li class="footer-navigation__item">
+          <a href="http://www.couchbase.com/nosql-databases/downloads">Download</a>
+      </li>
+    
+      
+        
+          
+        
+        
+      
+      <li class="footer-navigation__item">
+          <a href="http://www.couchbase.com/request-pricing">Request Pricing</a>
+      </li>
+    
+  </ul>
+
+</div>
+    <div class="footer-navigation__group--even">
+        
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+
+<h1 class="footer-navigation__title">
+  <a href="http://developer.couchbase.com">Developers</a>
+</h1>
+
+
+  <ul class="footer-navigation__items">
+    
+      
+        
+        
+          
+        
+      
+      <li class="footer-navigation__item">
+          <a href="http://developer.couchbase.com">Developer Portal</a>
+      </li>
+    
+      
+        
+        
+          
+        
+      
+      <li class="footer-navigation__item">
+          <a href="http://developer.couchbase.com/open-source-projects">Open Source</a>
+      </li>
+    
+      
+        
+        
+          
+        
+      
+      <li class="footer-navigation__item">
+          <a href="http://forums.couchbase.com/">Forum</a>
+      </li>
+    
+      
+        
+          
+        
+        
+      
+      <li class="footer-navigation__item">
+          <a href="http://www.couchbase.com/code-of-conduct">Code of Conduct</a>
+      </li>
+    
+  </ul>
+
+</div>
+    <div class="footer-navigation__group">
+        
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+
+<h1 class="footer-navigation__title">
+  <a href="http://www.couchbase.com/nosql-resources">Learn</a>
+</h1>
+
+
+  <ul class="footer-navigation__items">
+    
+      
+        
+        
+          
+        
+      
+      <li class="footer-navigation__item">
+          <a href="http://www.couchbase.com/nosql-resources/webinar">Webinars</a>
+      </li>
+    
+      
+        
+        
+          
+        
+      
+      <li class="footer-navigation__item">
+          <a href="http://www.couchbase.com/nosql-resources/nosql-whitepapers">Whitepapers</a>
+      </li>
+    
+      
+        
+        
+          
+        
+      
+      <li class="footer-navigation__item">
+          <a href="http://blog.couchbase.com/">Blog</a>
+      </li>
+    
+      
+        
+        
+          
+        
+      
+      <li class="footer-navigation__item">
+          <a href="http://training.couchbase.com/">Training</a>
+      </li>
+    
+      
+        
+        
+          
+        
+      
+      <li class="footer-navigation__item">
+          <a href="http://www.couchbase.com/nosql-resources/events">Events</a>
+      </li>
+    
+      
+        
+        
+          
+        
+      
+      <li class="footer-navigation__item">
+          <a href="http://www.couchbase.com/nosql-resources/presentations">Presentations</a>
+      </li>
+    
+  </ul>
+
+</div>
+    <div class="footer-navigation__group--even">
+        
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+
+<h1 class="footer-navigation__title">
+  <a href="http://www.couchbase.com/about">About</a>
+</h1>
+
+
+  <ul class="footer-navigation__items">
+    
+      
+        
+        
+          
+        
+      
+      <li class="footer-navigation__item">
+          <a href="http://www.couchbase.com/about">Company</a>
+      </li>
+    
+      
+        
+        
+          
+        
+      
+      <li class="footer-navigation__item">
+          <a href="http://www.couchbase.com/news-and-press-releases">News</a>
+      </li>
+    
+      
+        
+        
+          
+        
+      
+      <li class="footer-navigation__item">
+          <a href="http://www.couchbase.com/leadership">Leadership</a>
+      </li>
+    
+      
+        
+        
+          
+        
+      
+      <li class="footer-navigation__item">
+          <a href="http://www.couchbase.com/careers">Careers</a>
+      </li>
+    
+      
+        
+        
+          
+        
+      
+      <li class="footer-navigation__item">
+          <a href="http://www.couchbase.com/case-studies">Customers</a>
+      </li>
+    
+      
+        
+        
+          
+        
+      
+      <li class="footer-navigation__item">
+          <a href="http://www.couchbase.com/partners">Partners</a>
+      </li>
+    
+  </ul>
+
+</div>
+    </nav></div>
+</div>
+
+
+<div role="contentinfo" class="global-sub-footer">
+  <div class="layout-wrapper">
+
+    <p class="legal">
+  <span class="license">&copy; 2015
+    <b class="company-name">Couchbase</b> All rights reserved.
+  </span>
+
+  <a href="http://support.couchbase.com/home">Customer Login</a>
+
+    <a href="http://www.couchbase.com/terms-of-service">Terms of Service</a>
+
+    <a href="http://www.couchbase.com/privacy-policy">Privacy Policy</a>
+
+    <a href="http://www.couchbase.com/trademark-policy">Trademark Policy</a>
+
+    </p>
+<p class="languages">
+
+  <a href="http://www.couchbase.com">English</a>
+
+    <a href="http://www.couchbase.com/fr">Francais</a>
+
+    <a href="http://www.couchbase.com/de">Deutsch</a>
+
+    <a href="http://www.couchbase.com/jp">日本</a>
+
+    <a href="http://www.couchbase.com/kr">한국어</a>
+
+    <a href="http://www.couchbase.com/cn">繁體中文</a>
+
+    </p>
+</div>
+
+</div>
+
+<!-- End of site.../jsp/base/footer.jsp -->
+<!-- end - hst:include ref=footer -->
+
+
+<!--    _____________________________________
+_______/ Javascript includes below this line \_______________________________-->
+
+
+	<!-- Require_js bootstrap for app-specific JS module support -->
+	<!--<a href="/js/main.js" />-->
+
+	<script
+		type="text/javascript"
+		src="/js/vendor/require.js" ></script>
+
+	<script type="text/javascript" src="/js/modules/prism.js"></script>
+
+	<script rel="main"  
+		type="text/javascript"
+		src="/js/main.js" ></script>
+
+
+	<div about="hst head contributions">
+		</div>
+
+	<!-- begin - hst:include ref=google-adwords -->
+	<!-- end - hst:include ref=google-adwords -->
+
+
+	<!-- Marketo -->
+	<script type="text/javascript" defer async>
+
+		$(document).ready(function() {
+			var scriptUrl = "//munchkin.marketo.net/munchkin.js";
+
+			$.getScript(scriptUrl, function onMarketoScriptLoaded() {
+				tryInitMunchkin();
+			})
+		});
+
+		function tryInitMunchkin() {
+			if (typeof window['Munchkin'] !== 'undefined') {
+				window['Munchkin'].init('302-GJY-034');
+			} else {
+				setTimeout(tryInitMunchkin, 250);
+			}
+		}
+
+	</script>
+
+</body>
+</html>

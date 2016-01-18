@@ -23,11 +23,5 @@
 	<classpathentry kind="lib" path="lib/a28/commons-logging-1.1.jar"/>
 	<classpathentry kind="lib" path="lib/a27/dom4j-1.6.1.jar"/>
 	<classpathentry kind="lib" path="lib/a27/jaxen-1.1-beta-6.jar"/>
-	<classpathentry including="**/*.java" kind="src" output="target/classes" path="src">
-		<attributes>
-			<attribute name="optional" value="true"/>
-			<attribute name="maven.pomderived" value="true"/>
-		</attributes>
-	</classpathentry>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>
